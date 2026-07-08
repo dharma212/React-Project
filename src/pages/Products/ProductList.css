@@ -1,0 +1,123 @@
+.product-list-page {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem 10%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.filters-sidebar {
+  flex: 0 0 280px;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 4px;
+  height: fit-content;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.filters-sidebar h3 {
+  margin-top: 0;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #212121;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+}
+
+.search-input:focus {
+  border-color: #2874f0;
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #212121;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 2px;
+  border: 1px solid #e0e0e0;
+  outline: none;
+  background: white;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.products-main {
+  flex: 1;
+}
+
+.products-main h2 {
+  margin-top: 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 1.5rem;
+  color: #212121;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.pagination button {
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  background: #2874f0;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.pagination button:disabled {
+  background: #e0e0e0;
+  color: #878787;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-weight: 500;
+  color: #212121;
+}
+
+@media (max-width: 900px) {
+  .product-list-page {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  .filters-sidebar {
+    flex: none;
+    width: 100%;
+  }
+}

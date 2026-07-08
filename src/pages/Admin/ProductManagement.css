@@ -1,0 +1,241 @@
+.product-management-container{
+
+    padding:40px;
+
+    min-height:100vh;
+
+    background:#f5f7fb;
+
+}
+
+.product-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+.product-header h1{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:#1f2937;
+
+}
+
+.add-product-btn{
+
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 25px;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+.add-product-btn:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-3px);
+
+}
+
+.table-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+
+    overflow-x:auto;
+
+}
+
+.product-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.product-table thead{
+
+    background:#111827;
+
+    color:white;
+
+}
+
+
+
+
+.product-table th{
+
+    padding:16px;
+
+    text-align:left;
+
+    font-size:15px;
+
+}
+
+
+
+
+.product-table td{
+
+    padding:15px;
+
+    border-bottom:1px solid #e5e7eb;
+
+    color:#374151;
+
+}
+
+
+
+
+.product-table tbody tr{
+
+    transition:.3s;
+
+}
+
+
+
+.product-table tbody tr:hover{
+
+    background:#f9fafb;
+
+}
+
+
+
+
+
+.product-images{
+
+    width:60px;
+
+    height:60px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+    border:1px solid #ddd;
+
+}
+
+
+
+
+.edit-btn,
+.delete-btn{
+
+
+    padding:9px 18px;
+
+    border:none;
+
+    border-radius:8px;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    margin-right:10px;
+
+    transition:.3s;
+
+}
+
+
+
+
+.edit-btn{
+
+    background:#10b981;
+
+}
+
+
+
+.edit-btn:hover{
+
+    background:#059669;
+
+}
+
+
+
+
+
+.delete-btn{
+
+    background:#ef4444;
+
+}
+
+
+
+.delete-btn:hover{
+
+    background:#dc2626;
+
+}
+
+
+
+
+
+@media(max-width:768px){
+
+
+.product-management-container{
+
+    padding:20px;
+
+}
+
+
+
+.product-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:20px;
+}
+
+.product-table th,
+.product-table td{
+    white-space:nowrap;
+}
+}

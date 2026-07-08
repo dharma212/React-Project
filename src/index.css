@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f1f3f6; /* Flipkart grey background */
+  color: #212121; /* Flipkart dark text */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Global button styles */
+button {
+  font-family: 'Roboto', sans-serif;
+}

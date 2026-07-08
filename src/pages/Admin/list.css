@@ -1,0 +1,247 @@
+.list-container{
+
+    min-height:100vh;
+
+    padding:40px;
+
+    background:#f5f7fb;
+
+}
+
+
+
+
+.list-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.list-header h1{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+
+
+
+
+.count-badge{
+
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:10px 20px;
+
+    border-radius:25px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+
+
+
+
+.table-box{
+
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:20px;
+
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,0.08);
+
+
+    overflow-x:auto;
+
+}
+
+
+
+
+
+.common-table{
+
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+
+
+
+.common-table thead{
+
+
+    background:#111827;
+
+    color:white;
+
+}
+
+
+
+
+.common-table th{
+
+
+    padding:16px;
+
+    text-align:left;
+
+    font-size:15px;
+
+}
+
+
+
+
+.common-table td{
+
+
+    padding:16px;
+
+    border-bottom:1px solid #e5e7eb;
+
+    color:#374151;
+
+    font-size:16px;
+
+}
+
+
+
+
+
+.common-table tbody tr{
+
+
+    transition:.3s;
+
+}
+
+
+
+
+.common-table tbody tr:hover{
+
+
+    background:#f9fafb;
+
+    transform:scale(1.01);
+
+}
+
+
+
+
+
+.quantity{
+
+
+    background:#10b981;
+
+    color:white;
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    font-weight:600;
+
+}
+
+
+
+
+
+.empty{
+
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#777;
+
+    font-size:18px;
+
+}
+
+.view-btn {
+    
+    padding:8px 16px;
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    transition:.3s;
+
+    margin-right: 10px;
+}
+
+
+@media(max-width:768px){
+
+
+    .list-container{
+
+        padding:20px;
+
+    }
+
+
+    .list-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+
+    }
+
+
+    .common-table th,
+    .common-table td{
+
+        white-space:nowrap;
+
+    }
+
+
+}

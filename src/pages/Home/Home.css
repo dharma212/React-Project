@@ -1,0 +1,120 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hero-section {
+  background: linear-gradient(90deg, #2874f0 0%, #005ce6 100%);
+  color: white;
+  text-align: center;
+  padding: 8rem 2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.hero-section h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.hero-section p {
+  font-size: 1.3rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+}
+
+.btn-home {
+  background: yellow;
+  color: #000;
+  padding: 0.8rem 2rem;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 2px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-hero {
+  background: #ff9f00;
+  color: white;
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 2px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  display: inline-block;
+}
+
+.btn-hero:hover {
+  background: #f39700;
+  transform: translateY(-2px);
+}
+
+.categories-section {
+  padding: 2rem 10%;
+  text-align: center;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.category-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.category-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+}
+
+.category-card h3 {
+  margin: 0;
+  color: #212121;
+  font-size: 1.5rem;
+}
+
+.category-card a {
+  color: #2874f0;
+  text-decoration: none;
+  font-weight: 500;
+  border: 1px solid #2874f0;
+  padding: 0.5rem 1rem;
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.category-card a:hover {
+  background: #2874f0;
+  color: white;
+}
+.hero-section {
+  height: 90vh;
+  width: 100%;
+  background-image: url("/apple.slider.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
