@@ -48,7 +48,9 @@ const Navbar = () => {
             <MdOutlineShoppingCart /> Cart <span className="badge">{cart.length}</span>
           </Link>
         </li>
-
+        <Link to="/orders">
+Orders
+</Link>
         {currentUser ? (
           <>
             <li>

@@ -21,6 +21,13 @@ export const registerUser = (email, password) => {
 const newUser = {
   email,
   password,
+  username: "",
+  phone: "",
+  address: "",
+  city: "",
+  state: "",
+  pincode: "",
+  joinedAt: new Date().toISOString(),
   role: email === "admin@gmail.com" ? "admin" : "user"
 };  users.push(newUser);
   localStorage.setItem('usersDB', JSON.stringify(users));

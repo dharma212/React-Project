@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getUser, removeUser } from '../utils/localStorage';
+import { getUser, removeUser, saveUser } from '../utils/localStorage';
 
 export const AuthContext = createContext();
 
@@ -16,8 +16,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userData) => {
-    setCurrentUser(userData);
-  };
+  saveUser(userData);
+  setCurrentUser(userData);
+};
 
   const logout = () => {
     removeUser();

@@ -34,17 +34,6 @@ const ProductCard = ({ product }) => {
           </button>
         </div>
 
-        {/* Admin Buttons */}
-        {/* {currentUser?.role === "admin" && (
-          <div className="admin-buttons">
-            <Link to={`/edit-product/${product.id}`} className="btn-edit">
-              Edit
-            </Link>
-            <button className="btn-delete">
-              Delete
-            </button>
-          </div>
-        )} */}
       </div>
     </div>
   );

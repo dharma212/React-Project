@@ -1,50 +1,217 @@
-import React, { useContext, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import './Profile.css';
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import "./Profile.css";
 import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { currentUser, login } = useContext(AuthContext);
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
+    username: currentUser.username || "",
+    email: currentUser.email || "",
+    password: "",
+    phone: currentUser.phone || "",
+    address: currentUser.address || "",
+    city: currentUser.city || "",
+    state: currentUser.state || "",
+    pincode: currentUser.pincode || ""
+  });
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  }
   const handleUpdate = (e) => {
     e.preventDefault();
-    // Simulate updating user
-    const users = JSON.parse(localStorage.getItem('usersDB') || '[]');
-    const updatedUsers = users.map(u => u.email === currentUser.email ? { ...u, password } : u);
-    localStorage.setItem('usersDB', JSON.stringify(updatedUsers));
-    
-    // Update current context
-    login({ ...currentUser, password });
-    setMessage('Profile updated successfully!');
-    setPassword('');
-  };
+    const users = JSON.parse(
+      localStorage.getItem("usersDB") || "[]"
+    );
 
+    const updatedUsers = users.map(user => {
+      if (user.email === currentUser.email) {
+        return {
+          ...user,
+          username: formData.username,
+          email: formData.email,
+          password: formData.password || user.password,
+          phone: formData.phone,
+          address: formData.address,
+          city: formData.city,
+          state: formData.state,
+          pincode: formData.pincode
+        }
+      }
+      return user;
+    });
+    localStorage.setItem(
+      "usersDB",
+      JSON.stringify(updatedUsers)
+    );
+    const updatedUser = updatedUsers.find(
+      user => user.email === currentUser.email
+    );
+    localStorage.setItem(
+      "user",
+      JSON.stringify(updatedUser)
+    );
+    login(updatedUser);
+    setShowModal(false);
+  }
   return (
-    <div className="profile-container">
-      <div className="profile-box">
-        <h2>User Profile</h2>
-        <p><strong>Email:</strong> {currentUser.email}</p>
-        
-        <form onSubmit={handleUpdate} className="profile-form">
-          <h3>Change Password</h3>
-          {message && <p className="success-msg">{message}</p>}
-          <div className="input-group">
-            <label>New Password</label>
-            <input 
-              type="password" 
-              required 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+    <div className="profile-page">
+      <div className="profile-card">
+        <div className="profile-top">
+          <div className="profile-avatar">
+            {
+              currentUser.username
+                ?
+                currentUser.username.charAt(0).toUpperCase()
+                :
+                "U"
+            }
           </div>
-          <button type="submit" className="btn-primary">Update Profile</button>
-          <Link to="/">
-          <button class="btn-back">Back</button>
+          <div>
+            <h2>
+              {currentUser.username || "User"}
+            </h2>
+            <p>
+              {currentUser.email}
+            </p>
+          </div>
+        </div>
+        <div className="profile-details">
+          <div>
+            <label>Username</label>
+            <p>{currentUser.username || "--"}</p>
+          </div>
+          <div>
+            <label>Email</label>
+            <p>{currentUser.email}</p>
+          </div>
+          <div>
+            <label>Phone</label>
+            <p>{currentUser.phone || "--"}</p>
+          </div>
+          <div>
+            <label>Address</label>
+            <p>{currentUser.address || "--"}</p>
+          </div>
+          <div>
+            <label>City</label>
+            <p>{currentUser.city || "--"}</p>
+          </div>
+          <div>
+            <label>State</label>
+            <p>{currentUser.state || "--"}</p>
+          </div>
+          <div>
+            <label>Pincode</label>
+            <p>{currentUser.pincode || "--"}</p>
+          </div>
+          <div>
+            <label>Joined Date</label>
+            <p>
+              {
+                new Date(
+                  currentUser.joinedAt
+                ).toLocaleDateString()
+              }
+            </p>
+          </div>
+          <div>
+            <label>Account Type</label>
+            <p>
+              {currentUser.role}
+            </p>
+          </div>
+        </div>
+        <button
+          className="update-profile-btn"
+          onClick={() => setShowModal(true)}
+        >
+          Update Profile
+        </button>
+        <Link to="/">
+          <button className="back-btn">
+            Back
+          </button>
         </Link>
-        </form>
       </div>
+      {
+        showModal &&
+        <div className="modal-overlay">
+          <div className="profile-modal">
+            <h2>
+              Update Profile
+            </h2>
+            <form onSubmit={handleUpdate}>
+              <input
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                placeholder="Username"
+              />
+              <input
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email"
+              />
+              <input
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="New Password"
+              />
+              <input
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Phone"
+              />
+              <textarea
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                placeholder="Address"
+              />
+              <input
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                placeholder="City"
+              />
+              <input
+                name="state"
+                value={formData.state}
+                onChange={handleChange}
+                placeholder="State"
+              />
+              <input
+                name="pincode"
+                value={formData.pincode}
+                onChange={handleChange}
+                placeholder="Pincode"
+              />
+              <div className="modal-buttons">
+                <button type="submit">
+                  Save Changes
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      }
     </div>
   );
 };

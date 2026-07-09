@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { ProductContext } from "../../context/ProductContext";
 import { Link } from "react-router-dom";
 import "./ProductManagement.css";
+import Sidebar from "./Sidebar"; 
+import "./Sidebar.css"; 
 
 
 const ProductManagement = () => {
@@ -10,10 +12,10 @@ const ProductManagement = () => {
 
 
   return (
+    <div style={{ display: "flex", minHeight: "100vh" }}>
+    <Sidebar /> 
 
-    <div className="product-management-container">
-
-
+    <div style={{ marginLeft: "200px", width: "100%", padding: "25px" }}>
       <div className="product-header">
 
         <h1>
@@ -21,7 +23,7 @@ const ProductManagement = () => {
         </h1>
 
 
-        <Link to="/add-product">
+        <Link to="/admin/add-product">
 
           <button className="add-product-btn">
             + Add Product
@@ -100,7 +102,7 @@ const ProductManagement = () => {
                 <td>
 
 
-                  <Link to={`/edit-product/${product.id}`}>
+                  <Link to={`/admin/edit-product/${product.id}`}>
 
                     <button className="edit-btn">
                       Edit
@@ -137,6 +139,7 @@ const ProductManagement = () => {
       </div>
 
 
+    </div>
     </div>
 
   );

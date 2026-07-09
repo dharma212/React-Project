@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { AuthContext } from "../../context/AuthContext";
 import "./List.css";
+import Sidebar from "./Sidebar"; 
+import "./Sidebar.css"; 
 
 
 const CartList = () => {
@@ -14,11 +16,10 @@ const CartList = () => {
 
 
   return (
+    <div style={{ display: "flex", minHeight: "100vh" }}>
+    <Sidebar /> 
 
-    <div className="list-container">
-
-
-
+    <div style={{ marginLeft: "200px", width: "100%", padding: "25px" }}>
       <div className="list-header">
 
 
@@ -132,6 +133,7 @@ const CartList = () => {
       </div>
 
 
+    </div>
     </div>
 
   );

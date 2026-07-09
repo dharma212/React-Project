@@ -42,12 +42,26 @@ const Cart = () => {
             </div>
           ))}
         </div>
-        <div className="cart-summary">
-          <h3>Order Summary</h3>
-          <p>Total Items: {cart.reduce((sum, item) => sum + item.quantity, 0)}</p>
-          <h2>Total: ${total.toFixed(2)}</h2>
-
-            <button className="btn-checkout">Proceed to Checkout</button>
+        <div className="summary-card">
+          <h2>Price Details</h2>
+          <div className="summary-row">
+            <span>Products</span>
+            <span>₹{total.toFixed(2)}</span>
+          </div>
+          <div className="summary-row">
+            <span>Delivery</span>
+            <span>Free</span>
+          </div>
+          <hr />
+          <div className="final-total">
+            <span>Total</span>
+            <span>₹{total.toFixed(2)}</span>
+          </div>
+          <Link to="/checkout">
+              <button className="btn-checkout">
+                  Proceed to Checkout
+              </button>
+          </Link>
           <Link to="/">
             <button class="btn-back">Back</button>
           </Link>
