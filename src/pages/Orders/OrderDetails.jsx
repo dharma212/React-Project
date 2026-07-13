@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import "./order.css";
+import OrderProgress from "../../components/OrderProgress/OrderProgress";
 
 const OrderDetails = () => {
   const { id } = useParams();
@@ -23,6 +24,7 @@ const OrderDetails = () => {
       <div className="order-header-nav">
         <Link to="/orders" className="back-link">← Back to Orders</Link>
         <h1>Order Details</h1>
+        <OrderProgress status={order.status}/>
       </div>
 
       <div className="order-layout">

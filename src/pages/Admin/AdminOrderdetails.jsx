@@ -6,7 +6,7 @@ import "./AdminOrderdetails.css";
 
 const OrderDetails = () => {
 
-
+    console.log(JSON.parse(localStorage.getItem("orders")));
     const { id } = useParams();
 
 
@@ -81,6 +81,13 @@ const OrderDetails = () => {
         localStorage.setItem(
             "orders",
             JSON.stringify(updatedOrders)
+        );
+
+
+        setOrder(
+            updatedOrders.find(
+                item => item.id.toString() === id
+            )
         );
 
 
@@ -277,7 +284,7 @@ const OrderDetails = () => {
                             <p>
                                 <b>Address:</b>
                                 {" "}
-                                {order.user?.address}
+                                {order.address}
                             </p>
 
 
