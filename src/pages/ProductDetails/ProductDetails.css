@@ -136,3 +136,29 @@
     margin: 1rem;
   }
 }
+.btn-added{
+
+    flex:1;
+
+    padding:10px;
+
+    border-radius:6px;
+
+    border:none;
+
+    background:#28a745;
+
+    color:white;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+
+.btn-added:hover{
+
+    background:#218838;
+
+}

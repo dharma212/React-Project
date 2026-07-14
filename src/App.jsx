@@ -14,14 +14,12 @@ const MainContent = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      {/* Jo admin page nathi, to j navbar dekhase */}
       {!isAdminPage && <Navbar />} 
       
       <main style={{ flex: 1 }}>
         <AppRouter />
       </main>
       
-      {/* Jo admin page nathi, to j footer dekhase */}
       {!isAdminPage && <Footer />} 
     </div>
   );
@@ -33,7 +31,6 @@ function App() {
       <ProductProvider>
         <CartProvider>
           <BrowserRouter>
-            {/* Ahiya MainContent ne call karvo, juna div ne nikali nakho */}
             <MainContent />
           </BrowserRouter>
         </CartProvider>

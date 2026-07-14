@@ -24,7 +24,7 @@ const OrderDetails = () => {
       <div className="order-header-nav">
         <Link to="/orders" className="back-link">← Back to Orders</Link>
         <h1>Order Details</h1>
-        <OrderProgress status={order.status}/>
+        <OrderProgress status={order.status} />
       </div>
 
       <div className="order-layout">
@@ -70,10 +70,10 @@ const OrderDetails = () => {
             <div className="final-total">
               <span>Total Paid</span>
               <span>₹{numericTotal.toFixed(2)}</span>
-            </div>
-            <div className="order-status-display">
-              <span>Status:</span>
-              <span className="status-pill">{order.status}</span>
+              <p>
+                <b>Payment:</b>
+                {order.paymentMethod}
+              </p>
             </div>
           </div>
         </div>

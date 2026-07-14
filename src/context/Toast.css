@@ -1,0 +1,68 @@
+.toast {
+
+    position: fixed;
+
+    top: 20px;
+
+    right: 30px;
+
+    padding: 15px 25px;
+
+    border-radius: 8px;
+
+    color: white;
+
+    font-size: 16px;
+
+    z-index: 9999;
+
+    animation: slide 0.3s ease;
+
+}
+
+
+.toast.success {
+
+    background: #16a34a;
+
+}
+
+
+
+.toast.error {
+
+    background: #dc2626;
+
+}
+
+
+
+.toast.warning {
+
+    background: #f59e0b;
+
+}
+
+
+
+@keyframes slide {
+
+
+    from {
+
+        transform: translateX(100px);
+
+        opacity:0;
+
+    }
+
+
+    to {
+
+        transform: translateX(0);
+
+        opacity:1;
+
+    }
+
+}

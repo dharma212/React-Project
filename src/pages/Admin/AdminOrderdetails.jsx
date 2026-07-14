@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import "./AdminOrderdetails.css";
+import { useToast } from "../../context/ToastContext";
+import { useNavigate } from "react-router-dom";
 
 
 const OrderDetails = () => {
 
     console.log(JSON.parse(localStorage.getItem("orders")));
     const { id } = useParams();
-
-
+    const { showToast } = useToast();
+    const navigate = useNavigate();
     const [order, setOrder] = useState(null);
 
 
@@ -84,17 +86,17 @@ const OrderDetails = () => {
         );
 
 
-        setOrder(
-            updatedOrders.find(
-                item => item.id.toString() === id
-            )
+        const updatedOrder = updatedOrders.find(
+            item => item.id.toString() === id
         );
 
 
+        setOrder(updatedOrder);
 
-        // alert("Status Updated");
 
-
+        showToast(
+            `Order #${id} status updated to ${status}`
+        );
     };
 
 
@@ -369,6 +371,9 @@ const OrderDetails = () => {
 
                             </button>
 
+                            <button className="btn-back" onClick={() => navigate(
+                                `/admin/orders/`
+                            )}>Back</button>
 
 
                         </div>

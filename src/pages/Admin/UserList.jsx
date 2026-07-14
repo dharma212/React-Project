@@ -1,16 +1,98 @@
-import React, { useContext } from "react";
+// import React, { useContext } from "react";
 import "./list.css";
 import { AuthContext } from "../../context/AuthContext";
 import Sidebar from "./Sidebar";
 import "./Sidebar.css";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "../../context/ToastContext";
+import {
+  FaTachometerAlt,
+  FaBoxOpen,
+  FaShoppingCart,
+  FaHeart,
+  FaUsers,
+  FaStore,
+  FaHome,
+  FaTruck,
+  FaShoppingBag,
+  FaEye,
+  FaPlusCircle,
+} from "react-icons/fa";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 const UserList = () => {
   const { currentUser } = useContext(AuthContext)
+  const { showToast } = useToast();
+  const [users, setUsers] = useState(
+    JSON.parse(localStorage.getItem('usersDB') || '[]')
+  );
+  const [editUser, setEditUser] = useState(null);
+  const [showEdit, setShowEdit] = useState(false);
+  const navigate = useNavigate();
+  const deleteUser = (index) => {
 
-  const users = JSON.parse(localStorage.getItem('usersDB') || '[]');
 
+    const deletedUser = users[index];
+
+
+    const updatedUsers = users.filter(
+      (_, i) => i !== index
+    );
+
+
+    setUsers(updatedUsers);
+
+
+    localStorage.setItem(
+      "usersDB",
+      JSON.stringify(updatedUsers)
+    );
+
+
+    showToast(
+      `${deletedUser.username} deleted successfully`,
+      "warning"
+    );
+
+
+  };
+  const updateUser = () => {
+
+    const updatedUsers = users.map((user, index) =>
+      index === editUser.index
+        ? editUser.data
+        : user
+    );
+
+
+    setUsers(updatedUsers);
+
+
+    localStorage.setItem(
+      "usersDB",
+      JSON.stringify(updatedUsers)
+    );
+
+
+    setShowEdit(false);
+
+  };
+  // ✅ PUT VIEW FUNCTION HERE ALSO
+  const viewUser = (user) => {
+
+    alert(
+      `
+      Username: ${user.username || "Guest"}
+      Email: ${user.email || "-"}
+      Role: ${user.role || "user"}
+      `
+    );
+
+  };
 
   return (
+
     <div style={{ display: "flex", minHeight: "100vh" }}>
       <Sidebar />
 
@@ -52,6 +134,10 @@ const UserList = () => {
                 <th>Name</th>
 
                 <th>Email</th>
+
+                <th>Phone</th>
+
+                <th>Address</th>
 
                 <th>Role</th>
 
@@ -102,6 +188,17 @@ const UserList = () => {
 
                       </td>
 
+                      <td>
+
+                        {user.phone || "--"}
+
+                      </td>
+
+                      <td>
+
+                        {user.address || "--"}
+
+                      </td>
 
 
                       <td>
@@ -126,21 +223,42 @@ const UserList = () => {
 
                       <td>
 
+                        <button
 
-                        <button className="view-btn">
+                          className="view-btn"
 
-                          View
+                          onClick={() => navigate(
+                            "/admin/user-form",
+                            {
+                              state: {
+                                user: user,
+                                index: index
+                              }
+                            }
+                          )}
+                          title="View User Details"
+                        >
+                          <FaEye />
 
                         </button>
 
 
-                        <button className="delete-btn">
-
-                          Delete
+                        <button
+                          className="delete-btn"
+                          onClick={() => deleteUser(index)}
+                          title="Delete User"
+                        >
+                          <FaDeleteLeft />
 
                         </button>
+                        <button
+                          className="add-user-btn"
+                          onClick={() => navigate("/admin/user-form")}
+                          title="Add New User"
+                        >
+                          <FaPlusCircle />
 
-
+                        </button>
                       </td>
 
 

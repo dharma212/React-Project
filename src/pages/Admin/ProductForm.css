@@ -28,3 +28,22 @@
 .product-form button {
   margin-top: 1rem;
 }
+.image-preview{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+}
+
+
+.image-preview img{
+
+    width:180px;
+    height:180px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+    border:1px solid #ddd;
+
+}

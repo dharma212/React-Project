@@ -1,10 +1,11 @@
 import React, { createContext, useState, useEffect } from 'react';
-
+import { useToast } from './ToastContext';
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+  const { showToast } = useToast();
 
   useEffect(() => {
     const savedCart = localStorage.getItem('cartDB');
@@ -23,12 +24,14 @@ export const CartProvider = ({ children }) => {
     }
     setCart(newCart);
     localStorage.setItem('cartDB', JSON.stringify(newCart));
+    showToast(`${product.name} added to cart!`);
   };
 
   const removeFromCart = (id) => {
     const newCart = cart.filter(item => item.id !== id);
     setCart(newCart);
     localStorage.setItem('cartDB', JSON.stringify(newCart));
+    showToast(`Item removed from cart!`, "warning");
   };
 
   const updateQuantity = (id, quantity) => {
@@ -47,6 +50,22 @@ export const CartProvider = ({ children }) => {
     }
     setWishlist(newWishlist);
     localStorage.setItem('wishlistDB', JSON.stringify(newWishlist));
+    if (exists) {
+
+      showToast(
+        `${product.name} removed from wishlist!`,
+        "warning"
+      );
+
+    }
+    else {
+
+      showToast(
+        `${product.name} added to wishlist!`,
+        "success"
+      );
+
+    }
   };
 
   return (

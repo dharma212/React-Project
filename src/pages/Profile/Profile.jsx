@@ -1,21 +1,49 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import "./Profile.css";
 import { Link } from "react-router-dom";
+import { useToast } from "../../context/ToastContext";
 
 const Profile = () => {
+
   const { currentUser, login } = useContext(AuthContext);
+   const { showToast } = useToast();
+
+  const [userData, setUserData] = useState(currentUser);
+
+
+  useEffect(() => {
+
+    const users = JSON.parse(
+      localStorage.getItem("usersDB") || "[]"
+    );
+
+
+    const latestUser = users.find(
+      user => user.email === currentUser.email
+    );
+
+
+    if(latestUser){
+      setUserData(latestUser);
+    }
+
+
+  }, [currentUser]);
+
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    username: currentUser.username || "",
-    email: currentUser.email || "",
-    password: "",
-    phone: currentUser.phone || "",
-    address: currentUser.address || "",
-    city: currentUser.city || "",
-    state: currentUser.state || "",
-    pincode: currentUser.pincode || ""
-  });
+
+  username: userData.username || "",
+  email: userData.email || "",
+  password: "",
+  phone: userData.phone || "",
+  address: userData.address || "",
+  city: userData.city || "",
+  state: userData.state || "",
+  pincode: userData.pincode || ""
+
+});
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -29,7 +57,7 @@ const Profile = () => {
     );
 
     const updatedUsers = users.map(user => {
-      if (user.email === currentUser.email) {
+      if (user.email === userData.email) {
         return {
           ...user,
           username: formData.username,
@@ -49,13 +77,14 @@ const Profile = () => {
       JSON.stringify(updatedUsers)
     );
     const updatedUser = updatedUsers.find(
-      user => user.email === currentUser.email
+      user => user.email === userData.email
     );
     localStorage.setItem(
       "user",
       JSON.stringify(updatedUser)
     );
     login(updatedUser);
+    showToast("Profile updated successfully!");
     setShowModal(false);
   }
   return (
@@ -64,65 +93,65 @@ const Profile = () => {
         <div className="profile-top">
           <div className="profile-avatar">
             {
-              currentUser.username
+              userData.username
                 ?
-                currentUser.username.charAt(0).toUpperCase()
+                userData.username.charAt(0).toUpperCase()
                 :
                 "U"
             }
           </div>
           <div>
             <h2>
-              {currentUser.username || "User"}
+              {userData.username || "User"}
             </h2>
             <p>
-              {currentUser.email}
+              {userData.email}
             </p>
           </div>
         </div>
         <div className="profile-details">
           <div>
             <label>Username</label>
-            <p>{currentUser.username || "--"}</p>
+            <p>{userData.username || "--"}</p>
           </div>
           <div>
             <label>Email</label>
-            <p>{currentUser.email}</p>
+            <p>{userData.email}</p>
           </div>
           <div>
             <label>Phone</label>
-            <p>{currentUser.phone || "--"}</p>
+            <p>{userData.phone || "--"}</p>
           </div>
           <div>
             <label>Address</label>
-            <p>{currentUser.address || "--"}</p>
+            <p>{userData.address || "--"}</p>
           </div>
           <div>
             <label>City</label>
-            <p>{currentUser.city || "--"}</p>
+            <p>{userData.city || "--"}</p>
           </div>
           <div>
             <label>State</label>
-            <p>{currentUser.state || "--"}</p>
+            <p>{userData.state || "--"}</p>
           </div>
           <div>
             <label>Pincode</label>
-            <p>{currentUser.pincode || "--"}</p>
+            <p>{userData.pincode || "--"}</p>
           </div>
           <div>
             <label>Joined Date</label>
             <p>
-              {
-                new Date(
-                  currentUser.joinedAt
-                ).toLocaleDateString()
-              }
+                {
+      userData.joinedAt
+        ? new Date(userData.joinedAt).toLocaleDateString()
+        : "--"
+    }
             </p>
           </div>
           <div>
             <label>Account Type</label>
             <p>
-              {currentUser.role}
+              {userData.role}
             </p>
           </div>
         </div>

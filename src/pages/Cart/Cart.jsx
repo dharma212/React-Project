@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
 import './Cart.css';
+import { useToast } from "../../context/ToastContext";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
-
+  const { showToast } = useToast();
   const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   if (cart.length === 0) {
@@ -63,7 +64,7 @@ const Cart = () => {
               </button>
           </Link>
           <Link to="/">
-            <button class="btn-back">Back</button>
+            <button className="btn-back">Back</button>
           </Link>
         </div>
       </div>

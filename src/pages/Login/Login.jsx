@@ -3,12 +3,13 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { loginUser } from '../../utils/localStorage';
 import './Login.css';
+import { useToast } from "../../context/ToastContext";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  
+  const { showToast } = useToast();
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -23,6 +24,9 @@ const Login = () => {
     } else {
       setError(result.message);
     }
+       showToast(
+      "Login successfully"
+   );
   };
 
   return (

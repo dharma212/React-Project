@@ -7,7 +7,7 @@ import './ProductDetails.css';
 const ProductDetails = () => {
   const { id } = useParams();
   const { products } = useContext(ProductContext);
-  const { addToCart, toggleWishlist, wishlist } = useContext(CartContext);
+  const { addToCart, toggleWishlist, wishlist, cart } = useContext(CartContext);
 
   const product = products.find(p => p.id === parseInt(id));
 
@@ -21,7 +21,9 @@ const ProductDetails = () => {
   }
 
   const isWishlisted = wishlist.some(item => item.id === product.id);
-
+  const isInCart = cart.some(
+  item => item.id === product.id
+);
   return (
     <div className="product-details-container">
       <div className="product-details-image">
@@ -41,17 +43,34 @@ const ProductDetails = () => {
           </p>
         </div>
 
-        <p className="price">${product.price.toFixed(2)}</p>
+        <p className="price">₹{product.price.toFixed(2)}</p>
         <p className="description">{product.description}</p>
         
         <div className="action-buttons">
-          <button 
-            className="add-cart-btn" 
-            onClick={() => addToCart(product)}
-            disabled={product.stock === 0}
-          >
-            {product.stock === 0 ? 'Out of Stock' : ' Add to Cart'}
-          </button>
+          <button
+  className={isInCart ? "btn-added" : "btn-add"}
+
+  onClick={(e)=>{
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    if(!isInCart){
+
+      addToCart(product);
+
+    }
+
+  }}
+>
+
+{
+  isInCart 
+  ? "✓ Added in Cart"
+  : "Add Cart"
+}
+
+</button>
           
           <button className="wishlist-btn" onClick={() => toggleWishlist(product)}>
             {isWishlisted ? ' Remove' : ' Wishlist'}

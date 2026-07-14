@@ -21,6 +21,9 @@ import OrderList from "../pages/Orders/OrderList";
 import OrderDetails from "../pages/Orders/OrderDetails";
 import AdminOrderList from "../pages/Admin/AdminOrderList";
 import AdminOrderdetails from "../pages/Admin/AdminOrderdetails";
+import UserDetail from "../pages/Admin/UserDetail";
+import UserForm from "../pages/Admin/UserForm";
+import Payment from "../pages/Payment/Payment";
 
 const AppRouter = () => {
   return (
@@ -117,7 +120,7 @@ const AppRouter = () => {
     <Route
     path="/admin/orders"
     element={
-        <ProtectedRoute>
+        <ProtectedRoute adminOnly={true}>
         <AdminOrderList />
         </ProtectedRoute>
     }
@@ -131,7 +134,19 @@ const AppRouter = () => {
     </ProtectedRoute>
   }
 />
+<Route
+ path="/dashboard/user-detail"
+ element={<UserDetail />}
+/>
+<Route
+ path="/admin/user-form"
+ element={<UserForm />}
+/>
 
+<Route
+  path="/payment"
+  element={<Payment />}
+/>
     <Route path="*" element={<NotFound />} />
     </Routes>
   );

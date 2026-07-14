@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "./ProductManagement.css";
 import Sidebar from "./Sidebar";
 import "./Sidebar.css";
-
+import { FaDeleteLeft, FaEye } from "react-icons/fa6";
+import { useToast } from "../../context/ToastContext";
 
 const OrderList = () => {
 
 
   const [orders, setOrders] = useState([]);
-
+  const { showToast } = useToast();
   const navigate = useNavigate();
 
 
@@ -37,10 +38,17 @@ const OrderList = () => {
   const deleteOrder = (id) => {
 
 
+    const deletedOrder = orders.find(
+      order => order.id === id
+    );
+
+
+
     const updatedOrders =
       orders.filter(
-        (order) => order.id !== id
+        order => order.id !== id
       );
+
 
 
     localStorage.setItem(
@@ -49,7 +57,16 @@ const OrderList = () => {
     );
 
 
+
     setOrders(updatedOrders);
+
+
+
+    showToast(
+      `Order #${deletedOrder.id} deleted successfully`,
+      "warning"
+    );
+
 
   };
 
@@ -285,8 +302,7 @@ const OrderList = () => {
                           )}
 
                         >
-
-                          View
+                          <FaEye />
 
                         </button>
 
@@ -301,8 +317,7 @@ const OrderList = () => {
                           onClick={() => deleteOrder(order.id)}
 
                         >
-
-                          Delete
+                          <FaDeleteLeft />
 
                         </button>
 
