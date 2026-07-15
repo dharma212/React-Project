@@ -457,3 +457,25 @@ width:100%;
 
 
 }
+.payment-details {
+    margin-top: 20px;
+}
+
+
+.payment-info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+}
+
+
+.payment-info-row strong {
+    font-weight: 600;
+}
+
+
+.paid-status {
+    color: green;
+}

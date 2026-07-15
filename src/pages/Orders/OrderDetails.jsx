@@ -50,10 +50,42 @@ const OrderDetails = () => {
         <div className="order-right">
           <div className="order-card-box">
             <h2>Customer Details</h2>
+
             <p><b>Name:</b> {order.user.username}</p>
             <p><b>Email:</b> {order.user.email}</p>
             <p><b>Phone:</b> {order.user.phone}</p>
             <p><b>Address:</b> {order.address}</p>
+          </div>
+
+
+          {/* Payment Details */}
+          <div className="order-card-box payment-details">
+
+            <h2>Payment Information</h2>
+
+            <div className="payment-info-row">
+              <span>Payment Method</span>
+
+              <strong>
+                {order.paymentMethod === "Cash On Delivery"
+                  ? "💵 Cash On Delivery"
+                  : order.paymentMethod === "Net Banking"
+                    ? "🏦 Net Banking"
+                    : order.paymentMethod}
+              </strong>
+            </div>
+
+
+            <div className="payment-info-row">
+              <span>Payment Status</span>
+
+              <strong className="paid-status">
+                {order.paymentMethod === "Cash On Delivery"
+                  ? "Pending"
+                  : "Paid"}
+              </strong>
+            </div>
+
           </div>
 
           <div className="order-summary-box">
@@ -70,10 +102,6 @@ const OrderDetails = () => {
             <div className="final-total">
               <span>Total Paid</span>
               <span>₹{numericTotal.toFixed(2)}</span>
-              <p>
-                <b>Payment:</b>
-                {order.paymentMethod}
-              </p>
             </div>
           </div>
         </div>

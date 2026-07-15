@@ -1,135 +1,125 @@
 import React from "react";
 import "./OrderProgress.css";
 
+import {
+    FaClipboardList,
+    FaCog,
+    FaTruck,
+    FaBoxOpen,
+    FaTimesCircle
+} from "react-icons/fa";
 
 const OrderProgress = ({ status }) => {
 
+    const isCancelled = status === "Cancelled";
 
-    const steps = [
-        {
-            name:"Pending",
-            icon:"📝"
-        },
-        {
-            name:"Processing",
-            icon:"⚙️"
-        },
-        {
-            name:"Shipped",
-            icon:"🚚"
-        },
-        {
-            name:"Delivered",
-            icon:"📦"
-        }
-    ];
-
-
+    const steps = isCancelled
+        ? [
+            {
+                name: "Pending",
+                icon: <FaClipboardList />
+            },
+            {
+                name: "Processing",
+                icon: <FaCog />
+            },
+            {
+                name: "Shipped",
+                icon: <FaTruck />
+            },
+            {
+                name: "Cancelled",
+                icon: <FaTimesCircle />
+            }
+        ]
+        : [
+            {
+                name: "Pending",
+                icon: <FaClipboardList />
+            },
+            {
+                name: "Processing",
+                icon: <FaCog />
+            },
+            {
+                name: "Shipped",
+                icon: <FaTruck />
+            },
+            {
+                name: "Delivered",
+                icon: <FaBoxOpen />
+            }
+        ];
 
     const currentIndex = steps.findIndex(
         step => step.name === status
     );
 
-
-
     const progressWidth =
-        currentIndex === 0
-        ? "0%"
-        :
-        `${(currentIndex / (steps.length - 1)) * 100}%`;
-
-
+        currentIndex <= 0
+            ? "0%"
+            : `${(currentIndex / (steps.length - 1)) * 100}%`;
 
     return (
-
         <div className="tracking-container">
 
-
             <div className="progress-line">
-
-
                 <div
                     className="progress-fill"
                     style={{
-                        width:progressWidth
+                        width: progressWidth,
+                        background: isCancelled
+                            ? "#dc3545"
+                            : "#28a745"
                     }}
-                >
-
-
-                </div>
-
-
+                />
             </div>
-
-
 
             <div className="tracking-steps">
 
+                {steps.map((step, index) => (
 
-            {
-                steps.map((step,index)=>(
-
-
-                    <div 
-                    className="tracking-step"
-                    key={step.name}
+                    <div
+                        className="tracking-step"
+                        key={step.name}
                     >
 
-
                         <div
-                        className={
-                            index <= currentIndex
-                            ?
-                            "tracking-circle active"
-                            :
-                            "tracking-circle"
-                        }
+                            className={
+                                index <= currentIndex
+                                    ? isCancelled
+                                        ? "tracking-circle cancelled"
+                                        : "tracking-circle active"
+                                    : "tracking-circle"
+                            }
                         >
-
-
                             {
                                 index < currentIndex
-                                ?
-                                "✓"
-                                :
-                                step.icon
+                                    ? "✓"
+                                    : step.icon
                             }
-
-
                         </div>
 
-
-
                         <h4
-                        className={
-                            index <= currentIndex
-                            ?
-                            "active-text"
-                            :
-                            ""
-                        }
+                            className={
+                                index <= currentIndex
+                                    ? isCancelled
+                                        ? "cancelled-text"
+                                        : "active-text"
+                                    : ""
+                            }
                         >
-
                             {step.name}
-
                         </h4>
-
 
                     </div>
 
-
-                ))
-            }
-
+                ))}
 
             </div>
 
-
         </div>
-
-    )
-
-}
-
+    );
+};
 
 export default OrderProgress;
