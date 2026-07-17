@@ -73,7 +73,11 @@ const ProductManagement = () => {
                     <td>
 
                       <img
-                        src={product.image}
+                        src={
+                          product.images?.length > 0
+                            ? product.images[0]
+                            : product.image
+                        }
                         alt={product.name}
                         className="product-images"
                       />
@@ -81,10 +85,11 @@ const ProductManagement = () => {
                     </td>
 
 
-
-                    <td>
-                      {product.name}
-                    </td>
+<td>
+  {product.name.length > 20
+    ? product.name.substring(0, 20) + "..."
+    : product.name}
+</td>
 
 
 
@@ -122,7 +127,7 @@ const ProductManagement = () => {
                           deleteProduct(product.id);
 
                           showToast(
-                            `${product.name} deleted successfully`,
+                            `Product deleted successfully`,
                             "warning"
                           );
 

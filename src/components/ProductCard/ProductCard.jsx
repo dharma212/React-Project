@@ -13,8 +13,8 @@ const ProductCard = ({ product }) => {
   );
 
   const isInCart = cart.some(
-  item => item.id === product.id
-);
+    item => item.id === product.id
+  );
 
   return (
     <Link
@@ -29,13 +29,13 @@ const ProductCard = ({ product }) => {
         <div className="product-image-box">
 
           <img
-
-            src={product.image || "https://via.placeholder.com/300"}
-
+            src={
+              product.images?.[0] ||
+              product.image ||
+              "https://via.placeholder.com/300"
+            }
             alt={product.name}
-
             className="product-image"
-
           />
 
 
@@ -94,29 +94,29 @@ const ProductCard = ({ product }) => {
           <div className="product-actions">
 
             <button
-  className={isInCart ? "btn-added" : "btn-add"}
+              className={isInCart ? "btn-added" : "btn-add"}
 
-  onClick={(e)=>{
+              onClick={(e) => {
 
-    e.preventDefault();
-    e.stopPropagation();
+                e.preventDefault();
+                e.stopPropagation();
 
-    if(!isInCart){
+                if (!isInCart) {
 
-      addToCart(product);
+                  addToCart(product);
 
-    }
+                }
 
-  }}
->
+              }}
+            >
 
-{
-  isInCart 
-  ? "✓ Added in Cart"
-  : "Add Cart"
-}
+              {
+                isInCart
+                  ? "✓ Added in Cart"
+                  : "Add Cart"
+              }
 
-</button>
+            </button>
 
 
 

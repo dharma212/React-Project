@@ -1,13 +1,35 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./order.css";
 import OrderProgress from "../../components/OrderProgress/OrderProgress";
+import OrderDetailsSkeleton from "../../components/skeletons/OrderDetailsSkeleton";
 
 const OrderDetails = () => {
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+
+    const timer = setTimeout(() => {
+
+      setLoading(false);
+
+    }, 800);
+
+
+    return () => clearTimeout(timer);
+
+
+  }, []);
   const orders = JSON.parse(localStorage.getItem("orders") || "[]");
   const order = orders.find((o) => o.id == id);
 
+  if (loading) {
+
+    return <OrderDetailsSkeleton />;
+
+  }
   if (!order) {
     return (
       <div className="order-not-found">
@@ -34,9 +56,23 @@ const OrderDetails = () => {
             <h2>Ordered Products</h2>
             {order.products.map((item) => (
               <div className="order-product-item" key={item.id}>
-                <img src={item.image} alt={item.name} />
+                <img
+                  src={
+                    item.image ||
+                    "https://via.placeholder.com/150"
+                  }
+                  alt={item.name}
+                />
                 <div className="order-product-info">
-                  <h3>{item.name}</h3>
+                  <h3>
+
+                    {
+                      item.name.length > 45
+                        ? item.name.substring(0, 45) + "..."
+                        : item.name
+                    }
+
+                  </h3>
                   <p>Price: ₹{item.price}</p>
                   <p>Quantity: {item.quantity}</p>
                   <p className="order-subtotal">Subtotal: ₹{item.price * item.quantity}</p>

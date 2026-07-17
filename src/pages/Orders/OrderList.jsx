@@ -1,10 +1,26 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import "./order.css";
+import OrderSkeleton from "../../components/skeletons/OrderSkeleton";
 
 const OrderList = () => {
   const orders = JSON.parse(localStorage.getItem("orders") || "[]");
+  const [loading,setLoading]=useState(true);
+  useEffect(()=>{
 
+setTimeout(()=>{
+
+setLoading(false);
+
+},800);
+
+
+},[]);
+if(loading){
+
+return <OrderSkeleton/>;
+
+}
   return (
     <div className="orders-page">
       <h1>My Orders</h1>

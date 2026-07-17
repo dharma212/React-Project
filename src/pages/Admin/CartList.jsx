@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { AuthContext } from "../../context/AuthContext";
 import "./List.css";
-import Sidebar from "./Sidebar"; 
-import "./Sidebar.css"; 
+import Sidebar from "./Sidebar";
+import "./Sidebar.css";
 
 
 const CartList = () => {
@@ -17,123 +17,125 @@ const CartList = () => {
 
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
-    <Sidebar /> 
+      <Sidebar />
 
-    <div style={{ marginLeft: "200px", width: "100%", padding: "25px" }}>
-      <div className="list-header">
-
-
-        <h1>
-          Cart List
-        </h1>
+      <div style={{ marginLeft: "200px", width: "100%", padding: "25px" }}>
+        <div className="list-header">
 
 
-        <span className="count-badge">
-          {cart.length} Items
-        </span>
+          <h1>
+            Cart List
+          </h1>
 
 
-      </div>
+          <span className="count-badge">
+            {cart.length} Items
+          </span>
 
 
-
-
-      <div className="table-box">
-
-
-
-        <table className="common-table">
-
-
-          <thead>
-
-            <tr>
-
-              <th>User Email</th>
-
-              <th>Product Name</th>
-
-              <th>Quantity</th>
-
-            </tr>
-
-          </thead>
+        </div>
 
 
 
 
-          <tbody>
-
-
-          {
-            cart.length > 0 ? (
-
-              cart.map((item)=>(
-
-
-                <tr key={item.id}>
-
-
-                  <td>
-
-                    {
-                      currentUser
-                      ? currentUser.email
-                      : "Guest User"
-                    }
-
-                  </td>
+        <div className="table-box">
 
 
 
-                  <td>
-                    {item.name}
-                  </td>
+          <table className="common-table">
 
 
-
-                  <td>
-
-                    <span className="quantity">
-
-                      {item.quantity}
-
-                    </span>
-
-                  </td>
-
-
-                </tr>
-
-
-              ))
-
-            ) : (
+            <thead>
 
               <tr>
 
-                <td colSpan="3" className="empty">
+                <th>User Email</th>
 
-                  No Cart Items Found
+                <th>Product Name</th>
 
-                </td>
+                <th>Quantity</th>
 
               </tr>
 
-            )
-          }
+            </thead>
 
 
-          </tbody>
 
 
-        </table>
+            <tbody>
+
+
+              {
+                cart.length > 0 ? (
+
+                  cart.map((item) => (
+
+
+                    <tr key={item.id}>
+
+
+                      <td>
+
+                        {
+                          currentUser
+                            ? currentUser.email
+                            : "Guest User"
+                        }
+
+                      </td>
+
+
+
+                      <td>
+                        {item.name.length > 30
+                          ? item.name.substring(0, 30) + "..."
+                          : item.name}
+                      </td>
+
+
+
+                      <td>
+
+                        <span className="quantity">
+
+                          {item.quantity}
+
+                        </span>
+
+                      </td>
+
+
+                    </tr>
+
+
+                  ))
+
+                ) : (
+
+                  <tr>
+
+                    <td colSpan="3" className="empty">
+
+                      No Cart Items Found
+
+                    </td>
+
+                  </tr>
+
+                )
+              }
+
+
+            </tbody>
+
+
+          </table>
+
+
+        </div>
 
 
       </div>
-
-
-    </div>
     </div>
 
   );

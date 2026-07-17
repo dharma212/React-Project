@@ -70,7 +70,9 @@ const WishlistList = () => {
 
 
                       <td>
-                        {item.name}
+                        {item.name.length > 30
+                          ? item.name.substring(0, 30) + "..."
+                          : item.name}
                       </td>
 
 

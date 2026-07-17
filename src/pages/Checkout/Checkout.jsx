@@ -4,8 +4,11 @@ import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Checkout.css";
 import { useToast } from "../../context/ToastContext";
+import CheckoutSkeleton from "../../components/skeletons/CheckoutSkeleton";
 
 const Checkout = () => {
+
+  const [loading, setLoading] = useState(true);
   const { cart } = useContext(CartContext);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -15,6 +18,19 @@ const Checkout = () => {
     showToast(
       "Checkout page opened"
     );
+
+  }, []);
+  useEffect(() => {
+
+    const timer = setTimeout(() => {
+
+      setLoading(false);
+
+    }, 800);
+
+
+    return () => clearTimeout(timer);
+
 
   }, []);
   const [address, setAddress] = useState(currentUser?.address || "");
@@ -52,7 +68,11 @@ const Checkout = () => {
 
     }, 1000);
   };
+  if (loading) {
 
+    return <CheckoutSkeleton />;
+
+  }
 
   return (
     <div className="checkout-container">
@@ -67,7 +87,11 @@ const Checkout = () => {
               <div className="checkout-product" key={item.id}>
                 <img src={item.image} alt={item.name} />
                 <div className="product-info">
-                  <h3>{item.name}</h3>
+                  <h3>
+                    {item.name.length > 60
+                      ? item.name.substring(0, 60) + "..."
+                      : item.name}
+                  </h3>
                   <p>Price: ₹{item.price}</p>
                   <p>Quantity: {item.quantity}</p>
                   <p>Subtotal: ₹{item.price * item.quantity}</p>
@@ -105,7 +129,7 @@ const Checkout = () => {
               <span>₹{total.toFixed(2)}</span>
             </div>
             <button onClick={handleConfirm} className="place-order-btn">
-              Place Order
+              Proceed to Payment
             </button>
           </div>
         </div>

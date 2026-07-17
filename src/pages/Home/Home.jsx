@@ -3,34 +3,50 @@ import './Home.css';
 import { ProductContext } from '../../context/ProductContext';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom';
-
+import ProductCardSkeleton from '../../components/skeletons/ProductCardSkeleton';
+import HeroSkeleton from '../../components/skeletons/HeroSkeleton';
+import Skeleton from "react-loading-skeleton";
 const Home = () => {
-  const { products } = useContext(ProductContext);
+  const { products, loading } = useContext(ProductContext);
 
   return (
     <div className="home-container">
 
       {/* 🌟 HERO BANNER */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1>Welcome to E-Store</h1>
-          <p>Discover amazing products at unbeatable prices</p>
+      {loading ? (
+        <HeroSkeleton />
+      ) : (
+        <section className="hero-section">
+          <div className="hero-content">
+            <h1>Welcome to E-Store</h1>
+            <p>Discover amazing products at unbeatable prices</p>
 
-          <div className="hero-buttons">
-            <Link to="/products" className="btn-home">Shop Now</Link>
-            {/* <Link to="/products" className="btn secondary">Explore Deals</Link> */}
+            <div className="hero-buttons">
+              <Link to="/products" className="btn-home">
+                Shop Now
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ⭐ FEATURED TITLE */}
-      <h2 className="section-title">Featured Products</h2>
-
+      {loading ? (
+        <Skeleton width={250} height={40} />
+      ) : (
+        <h2 className="section-title">Featured Products</h2>
+      )}
       {/* 🛒 PRODUCTS */}
       <div className="product-grid">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {loading
+          ? Array(8)
+            .fill()
+            .map((_, index) => (
+              <ProductCardSkeleton key={index} />
+            ))
+          : products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
       </div>
     </div>
   );

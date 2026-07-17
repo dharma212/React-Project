@@ -3,11 +3,25 @@ import { AuthContext } from "../../context/AuthContext";
 import "./Profile.css";
 import { Link } from "react-router-dom";
 import { useToast } from "../../context/ToastContext";
+import ProfileSkeleton from "../../components/skeletons/ProfileSkeleton";
 
 const Profile = () => {
+  const [loading,setLoading] = useState(true);
+  useEffect(()=>{
 
+    const timer=setTimeout(()=>{
+
+        setLoading(false);
+
+    },800);
+
+
+    return ()=>clearTimeout(timer);
+
+
+},[]);
   const { currentUser, login } = useContext(AuthContext);
-   const { showToast } = useToast();
+  const { showToast } = useToast();
 
   const [userData, setUserData] = useState(currentUser);
 
@@ -24,7 +38,7 @@ const Profile = () => {
     );
 
 
-    if(latestUser){
+    if (latestUser) {
       setUserData(latestUser);
     }
 
@@ -34,16 +48,16 @@ const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
 
-  username: userData.username || "",
-  email: userData.email || "",
-  password: "",
-  phone: userData.phone || "",
-  address: userData.address || "",
-  city: userData.city || "",
-  state: userData.state || "",
-  pincode: userData.pincode || ""
+    username: userData.username || "",
+    email: userData.email || "",
+    password: "",
+    phone: userData.phone || "",
+    address: userData.address || "",
+    city: userData.city || "",
+    state: userData.state || "",
+    pincode: userData.pincode || ""
 
-});
+  });
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -87,6 +101,11 @@ const Profile = () => {
     showToast("Profile updated successfully!");
     setShowModal(false);
   }
+  if(loading){
+
+    return <ProfileSkeleton/>;
+
+}
   return (
     <div className="profile-page">
       <div className="profile-card">
@@ -141,11 +160,11 @@ const Profile = () => {
           <div>
             <label>Joined Date</label>
             <p>
-                {
-      userData.joinedAt
-        ? new Date(userData.joinedAt).toLocaleDateString()
-        : "--"
-    }
+              {
+                userData.joinedAt
+                  ? new Date(userData.joinedAt).toLocaleDateString()
+                  : "--"
+              }
             </p>
           </div>
           <div>

@@ -25,7 +25,7 @@ const ProductForm = () => {
     name: '',
     price: '0',
     category: 'Electronics',
-    image: '',
+    images: [],
     description: '',
     stock: '',
     rating: 5
@@ -47,9 +47,18 @@ const ProductForm = () => {
 
 
       if (existingProduct) {
-        setFormData(existingProduct);
-      }
 
+    setFormData({
+        ...existingProduct,
+
+        images: existingProduct.images 
+            ? existingProduct.images 
+            : existingProduct.image 
+            ? [existingProduct.image]
+            : []
+    });
+
+}
     }
 
   }, [id, products, isEditMode]);
@@ -78,29 +87,39 @@ const ProductForm = () => {
   // Handle Image Upload
   const handleImageChange = (e) => {
 
-    const file = e.target.files[0];
+    const files = Array.from(e.target.files);
+
+    const imagePromises = files.map(file => {
+
+        return new Promise((resolve)=>{
+
+            const reader = new FileReader();
+
+            reader.onloadend = ()=> {
+                resolve(reader.result);
+            };
+
+            reader.readAsDataURL(file);
+
+        });
+
+    });
 
 
-    if (file) {
+    Promise.all(imagePromises)
+    .then(images=>{
 
-      const reader = new FileReader();
+        setFormData(prev=>({
+    ...prev,
+    images:[
+        ...(prev.images || []),
+        ...images
+    ]
+}));
 
+    });
 
-      reader.onloadend = () => {
-
-        setFormData(prev => ({
-          ...prev,
-          image: reader.result
-        }));
-
-      };
-
-
-      reader.readAsDataURL(file);
-
-    }
-
-  };
+};
 
 
 
@@ -115,16 +134,17 @@ const ProductForm = () => {
 
     const productToSave = {
 
-      ...formData,
+  ...formData,
 
-      price: parseInt(formData.price),
+  images: formData.images || [],
 
-      stock: parseInt(formData.stock),
+  price: parseInt(formData.price),
 
-      rating: parseFloat(formData.rating)
+  stock: parseInt(formData.stock),
 
-    };
+  rating: parseFloat(formData.rating)
 
+};
 
 
     if (isEditMode) {
@@ -311,36 +331,31 @@ const ProductForm = () => {
 
 
             <input
-
-              type="file"
-
-              accept="image/*"
-
-              onChange={handleImageChange}
-
-            />
+ type="file"
+ accept="image/*"
+ multiple
+ onChange={handleImageChange}
+/>
 
 
 
 
 
-            {
-              formData.image && (
+            <div className="image-preview">
 
-                <div className="image-preview">
+{
+(formData.images || []).map((img,index)=>(
 
-                  <img
+    <img
+      key={index}
+      src={img}
+      alt="preview"
+    />
 
-                    src={formData.image}
+ ))
+}
 
-                    alt="Product Preview"
-
-                  />
-
-                </div>
-
-              )
-            }
+</div>
 
 
 
