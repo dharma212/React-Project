@@ -1,0 +1,402 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+.signup-page {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #eef2ff;
+
+    padding: 20px;
+
+}
+
+
+/* MAIN CARD */
+
+.signup-card {
+
+    width: 900px;
+
+    height: 550px;
+
+    display: flex;
+
+    background: white;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.15);
+
+    animation: signupAnimation .6s ease;
+
+}
+
+
+
+
+/* FORM SIDE */
+
+.signup-form {
+
+    width: 50%;
+
+    padding: 50px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    order: 1;
+
+}
+
+
+
+.signup-form h1 {
+
+    text-align: center;
+
+    font-size: 32px;
+
+    margin-bottom: 30px;
+
+    color: #111827;
+
+}
+
+
+
+
+/* INPUT */
+
+.input-box {
+
+    height: 52px;
+
+    width: 100%;
+
+    background: #f3f4f6;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 15px;
+
+    margin-bottom: 15px;
+
+    transition: .3s;
+
+}
+
+
+
+.input-box svg {
+
+    color: #6366f1;
+
+}
+
+
+
+.input-box:focus-within {
+
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, .15);
+
+}
+
+
+
+.input-box input {
+
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    font-size: 15px;
+
+}
+
+
+
+
+
+/* BUTTON */
+
+.signup-form button {
+
+    width: 100%;
+
+    height: 52px;
+
+    border: none;
+
+    border-radius: 25px;
+
+    margin-top: 10px;
+
+    background: #2874f0;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+}
+
+
+
+.signup-form button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+/* WELCOME SIDE */
+
+
+.signup-welcome {
+
+    width: 50%;
+
+    order: 2;
+
+    background: linear-gradient(#2874f0);
+
+    color: white;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px;
+
+
+    border-top-left-radius: 130px;
+
+    border-bottom-left-radius: 130px;
+
+}
+
+
+
+.signup-welcome h1 {
+
+    font-size: 38px;
+
+    margin-bottom: 15px;
+
+}
+
+
+
+.signup-welcome p {
+
+    font-size: 16px;
+
+    margin-bottom: 25px;
+
+}
+
+
+
+
+
+.signup-welcome a {
+
+    width: 170px;
+
+    padding: 12px 30px;
+
+    border: 2px solid white;
+
+    border-radius: 30px;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: .3s;
+
+}
+
+
+
+.signup-welcome a:hover {
+
+    background: white;
+
+    color: #6366f1;
+
+}
+
+
+
+
+
+/* Animation */
+
+
+@keyframes signupAnimation {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(40px);
+
+    }
+
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+
+
+
+
+/* MOBILE */
+
+
+@media(max-width:768px) {
+
+
+    .signup-card {
+
+        width: 100%;
+
+        height: auto;
+
+        flex-direction: column;
+
+    }
+
+
+
+    .signup-form {
+
+        width: 100%;
+
+        padding: 35px 25px;
+
+        order: 2;
+
+    }
+
+
+
+    .signup-welcome {
+
+        width: 100%;
+
+        height: 250px;
+
+        order: 1;
+
+        border-radius: 0 0 90px 90px;
+
+    }
+
+
+
+    .signup-welcome h1 {
+
+        font-size: 30px;
+
+    }
+
+
+}
+
+.form-error {
+
+    width: 100%;
+
+    background: #fee2e2;
+
+    color: #dc2626;
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    margin-bottom: 15px;
+
+    border-left: 4px solid #dc2626;
+
+    animation: error .3s ease;
+
+}
+
+
+@keyframes error {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(-8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
