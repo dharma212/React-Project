@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./Checkout.css";
 import { useToast } from "../../context/ToastContext";
 import CheckoutSkeleton from "../../components/skeletons/CheckoutSkeleton";
+import { getUser } from "../../utils/localStorage";
 
 const Checkout = () => {
 
@@ -106,10 +107,10 @@ const Checkout = () => {
           {/* User Details */}
           <div className="checkout-card">
             <h2>User Details</h2>
-            <p><b>Name:</b> {currentUser.username}</p>
-            <p><b>Email:</b> {currentUser.email}</p>
-            <p><b>Phone:</b> {currentUser.phone}</p>
-            <p><b>Address:</b> {currentUser.address}</p>
+            <p><b>Name:</b> {currentUser?.username || "Guest User"}</p>
+            <p><b>Email:</b> {currentUser?.email || "-"}</p>
+            <p><b>Phone:</b> {currentUser?.phone || "-"}</p>
+            <p><b>Address:</b> {currentUser?.address || "Address not added"}</p>
           </div>
 
           {/* Price Summary */}

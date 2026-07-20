@@ -85,11 +85,11 @@ const ProductManagement = () => {
                     </td>
 
 
-<td>
-  {product.name.length > 20
-    ? product.name.substring(0, 20) + "..."
-    : product.name}
-</td>
+                    <td>
+                      {product.name.length > 20
+                        ? product.name.substring(0, 20) + "..."
+                        : product.name}
+                    </td>
 
 
 

@@ -24,9 +24,9 @@ import { FaDeleteLeft } from "react-icons/fa6";
 const UserList = () => {
   const { currentUser } = useContext(AuthContext)
   const { showToast } = useToast();
-  const [users, setUsers] = useState(
-    JSON.parse(localStorage.getItem('usersDB') || '[]')
-  );
+const [users, setUsers] = useState(
+  JSON.parse(localStorage.getItem('usersDB') || '[]')
+);
   const [editUser, setEditUser] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
   const navigate = useNavigate();
@@ -161,112 +161,138 @@ const UserList = () => {
 
                 users.length > 0 ? (
 
-                  users.map((user, index) => (
+                 users.map((user, index) => (
+
+<tr key={index}>
 
 
-                    <tr key={index}>
-
-
-                      <td>
-                        {index + 1}
-                      </td>
-
-
-
-                      <td>
-
-                        {user.username || "--"}
-
-                      </td>
+<td>
+ {index + 1}
+</td>
 
 
 
-
-                      <td>
-
-                        {user.email || "--"}
-
-                      </td>
-
-                      <td>
-
-                        {user.phone || "--"}
-
-                      </td>
-
-                      <td>
-
-                        {user.address || "--"}
-
-                      </td>
-
-
-                      <td>
-                        {user.role || "--"}
-                      </td>
+<td>
+ {
+   typeof user.username === "object"
+     ? user.username.name
+     : user.username || "--"
+ }
+</td>
 
 
 
-                      <td>
-
-                        <span className="active">
-
-                          Active
-
-                        </span>
-
-                      </td>
+<td>
+ {
+   typeof user.email === "object"
+     ? user.email.email
+     : user.email || "--"
+ }
+</td>
 
 
 
-
-
-                      <td>
-
-                        <button
-
-                          className="view-btn"
-
-                          onClick={() => navigate(
-                            "/admin/user-form",
-                            {
-                              state: {
-                                user: user,
-                                index: index
-                              }
-                            }
-                          )}
-                          title="View User Details"
-                        >
-                          <FaEye />
-
-                        </button>
-
-
-                        <button
-                          className="delete-btn"
-                          onClick={() => deleteUser(index)}
-                          title="Delete User"
-                        >
-                          <FaDeleteLeft />
-
-                        </button>
-                        <button
-                          className="add-user-btn"
-                          onClick={() => navigate("/admin/user-form")}
-                          title="Add New User"
-                        >
-                          <FaPlusCircle />
-
-                        </button>
-                      </td>
+<td>
+ {
+   typeof user.phone === "object"
+     ? user.phone.phone
+     : user.phone || "--"
+ }
+</td>
 
 
 
-                    </tr>
+<td>
+ {
+   typeof user.address === "object"
+     ? "--"
+     : user.address || "--"
+ }
+</td>
 
 
-                  ))
+
+<td>
+ {
+   user.role || "--"
+ }
+</td>
+
+
+
+<td>
+
+<span className="active">
+ Active
+</span>
+
+</td>
+
+
+
+<td>
+
+<button
+
+className="view-btn"
+
+onClick={() =>
+navigate(
+"/admin/user-form",
+{
+ state:{
+   user:user,
+   index:index
+ }
+}
+)}
+
+title="View User Details"
+
+>
+
+<FaEye />
+
+</button>
+
+
+<button
+
+className="delete-btn"
+
+onClick={() => deleteUser(index)}
+
+title="Delete User"
+
+>
+
+<FaDeleteLeft />
+
+</button>
+
+
+<button
+
+className="add-user-btn"
+
+onClick={() => navigate("/admin/user-form")}
+
+title="Add New User"
+
+>
+
+<FaPlusCircle />
+
+</button>
+
+
+</td>
+
+
+
+</tr>
+
+))
 
                 ) : (
 

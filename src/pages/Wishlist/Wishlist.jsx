@@ -202,7 +202,7 @@ const Wishlist = () => {
                         className={
                           isInCart
                           ? "btn-added"
-                          : "cart-btn"
+                          : "cart-Btn"
                         }
 
 

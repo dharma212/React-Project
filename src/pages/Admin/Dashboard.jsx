@@ -18,8 +18,54 @@ const Dashboard = () => {
 
   const users = JSON.parse(
     localStorage.getItem("usersDB") || "[]"
-  );
+  ).map((user) => {
 
+    let userEmail = "-";
+    let userName = "Guest";
+    let userPhone = "-";
+
+
+    // email fix
+    if (typeof user.email === "object" && user.email !== null) {
+      userEmail = user.email.email || "-";
+    } else {
+      userEmail = user.email || "-";
+    }
+
+
+    // username fix
+    if (typeof user.username === "object" && user.username !== null) {
+      userName = user.username.name || "Guest";
+    }
+    else if (typeof user.name === "object" && user.name !== null) {
+      userName = user.name.name || "Guest";
+    }
+    else {
+      userName =
+        user.username ||
+        user.name ||
+        userEmail ||
+        "Guest";
+    }
+
+
+    // phone fix
+    if (typeof user.phone === "object" && user.phone !== null) {
+      userPhone = user.phone.phone || "-";
+    }
+    else {
+      userPhone = user.phone || "-";
+    }
+
+
+    return {
+      ...user,
+      username: userName,
+      email: userEmail,
+      phone: userPhone
+    };
+
+  });
 
   const orders = JSON.parse(
     localStorage.getItem("orders") || "[]"
@@ -335,11 +381,16 @@ const Dashboard = () => {
 
 
                         <td>
+
                           {
-                            order.user?.name ||
-                            order.user?.username ||
-                            "Guest"
+                            typeof order.user?.name === "object"
+                              ? order.user.name?.name
+                              : order.user?.name ||
+                              order.user?.username ||
+                              order.user?.email ||
+                              "Guest"
                           }
+
                         </td>
 
 
@@ -416,13 +467,11 @@ const Dashboard = () => {
 
             <tbody>
 
-
               {
-
-                users.slice()
+                users
+                  .slice()
                   .reverse()
                   .map((user, index) => (
-
 
                     <tr key={index}>
 
@@ -433,36 +482,22 @@ const Dashboard = () => {
 
 
                       <td>
-                        {
-                          user.username ||
-                          user.name ||
-                          user.email ||
-                          "Guest"
-                        }
+                        {user.username}
                       </td>
 
 
                       <td>
-                        {
-                          user.email ||
-                          "-"
-                        }
+                        {user.email}
                       </td>
 
 
                     </tr>
 
-
                   ))
-
-
               }
 
 
-
             </tbody>
-
-
           </table>
 
 

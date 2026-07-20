@@ -187,8 +187,11 @@ const Payment = () => {
 
                                     <div className="payment-product-info">
 
+
                                         <h3>
-                                            {item.name}
+                                            {item.name.length > 70
+                                                ? item.name.substring(0, 70) + "..."
+                                                : item.name}
                                         </h3>
 
                                         <p>

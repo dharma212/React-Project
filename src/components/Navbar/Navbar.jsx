@@ -99,16 +99,16 @@ const Navbar = () => {
           </li>
         )}
 
-        <li>
-          <Link to="/cart" onClick={() => setMenuOpen(false)}>
-            <MdOutlineShoppingCart /> Cart <span className="badge">{cart.length}</span>
-          </Link>
-        </li>
-        <li><Link to="/orders" onClick={() => setMenuOpen(false)}>
-          <FaTruckFast /> Orders
-        </Link></li>
         {currentUser ? (
           <>
+            <li>
+              <Link to="/cart" onClick={() => setMenuOpen(false)}>
+                <MdOutlineShoppingCart /> Cart <span className="badge">{cart.length}</span>
+              </Link>
+            </li>
+            <li><Link to="/orders" onClick={() => setMenuOpen(false)}>
+              <FaTruckFast /> Orders
+            </Link></li>
             <li>
               <Link to="/wishlist" onClick={() => setMenuOpen(false)}>
                 <LuHeart /> Wishlist <span className="badge">{wishlist.length}</span>
@@ -150,7 +150,7 @@ const Navbar = () => {
                   </div>
                 ) : (
                   searchResults
-                    ?.slice(0, 5)
+                    ?.slice(0, 3)
                     .map((item) => (
                       <div
                         className="search-product-card"
