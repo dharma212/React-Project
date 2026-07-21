@@ -5,7 +5,7 @@ import { CartContext } from '../../context/CartContext';
 import './Navbar.css';
 import SearchBar from '../Search/SearchBar';
 import { useToast } from "../../context/ToastContext";
-import { FaSearch } from "react-icons/fa";
+import { FaHistory, FaSearch } from "react-icons/fa";
 import { useRef } from "react";
 import { ProductContext } from "../../context/ProductContext";
 import { FaTachometerAlt, FaBoxOpen, FaShoppingCart, FaHeart, FaUsers, FaStore, FaHome, FaTruck, FaShoppingBag, } from "react-icons/fa";
@@ -17,11 +17,102 @@ const Navbar = () => {
   const [searchText, setSearchText] = useState("");
   const { products } = useContext(ProductContext);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchHistory, setSearchHistory] = useState([]);
   const searchRef = useRef();
+  const [popularProducts, setPopularProducts] = useState([]);
   const { currentUser, logout } = useContext(AuthContext);
   const { cart, wishlist } = useContext(CartContext);
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  console.log("Products:", products);
+  console.log("Popular:", popularProducts);
+  const saveSearchHistory = (searchText) => {
+
+    if (!searchText.trim()) return;
+
+
+    let history = JSON.parse(
+      localStorage.getItem("searchHistory")
+    ) || [];
+
+
+    history = history.filter(
+      item => item.toLowerCase() !== searchText.toLowerCase()
+    );
+
+
+    history.unshift(searchText);
+
+
+    history = history.slice(0, 10);
+
+
+    localStorage.setItem(
+      "searchHistory",
+      JSON.stringify(history)
+    );
+
+  };
+
+
+  // ADD HERE 👇
+
+  const loadSearchHistory = () => {
+
+    const history =
+      JSON.parse(
+        localStorage.getItem("searchHistory")
+      ) || [];
+
+
+    setSearchHistory(history);
+
+  };
+  const loadPopularProducts = () => {
+
+    const orders =
+      JSON.parse(localStorage.getItem("orders")) || [];
+
+
+    let salesCount = {};
+
+
+    orders.forEach(order => {
+
+      order.items?.forEach(item => {
+
+        salesCount[item.id] =
+          (salesCount[item.id] || 0)
+          +
+          (item.quantity || 1);
+
+      });
+
+    });
+
+
+
+    let sortedProducts = products
+      ?.filter(product => salesCount[product.id])
+      ?.sort(
+        (a, b) =>
+          salesCount[b.id] - salesCount[a.id]
+      )
+      ?.slice(0, 5);
+
+
+
+    // If no sales available show first products
+    if (!sortedProducts || sortedProducts.length === 0) {
+
+      sortedProducts = products?.slice(0, 5);
+
+    }
+
+
+    setPopularProducts(sortedProducts);
+
+  };
   const searchResults = products?.filter((item) => {
 
     return (
@@ -67,7 +158,15 @@ const Navbar = () => {
       </div>
       <button
         className="mobile-search-btn"
-        onClick={() => setSearchOpen(true)}
+        onClick={() => {
+
+          setSearchOpen(true);
+
+          loadSearchHistory();
+
+          loadPopularProducts();
+
+        }}
       >
         <FaSearch />
       </button>
@@ -83,9 +182,6 @@ const Navbar = () => {
         <div className="mobile-menu-title">
           <h3>Main Menu</h3>
           <span>E-Store Navigation</span>
-        </div>
-        <div className="mobile-search">
-          <SearchBar />
         </div>
         <li><Link to="/" onClick={() => setMenuOpen(false)}>          <FaHome />
           Home</Link></li>
@@ -130,7 +226,12 @@ const Navbar = () => {
             <div className="search-header">
               <LuX
                 className="close-search"
-                onClick={() => setSearchOpen(false)}
+                onClick={() => {
+                  setSearchOpen(false);
+                  setSearchText("");
+                  loadPopularProducts();
+
+                }}
               />
               <input
                 ref={searchRef}
@@ -141,40 +242,191 @@ const Navbar = () => {
               />
             </div>
             <div className="search-products">
-              <h4>Popular Products</h4>
+
+
               {
-                searchText.length > 0 && searchResults.length === 0 ? (
-                  <div className="no-product-found">
-                    <h3>No Product Found 😕</h3>
-                    <p>Try searching something else</p>
-                  </div>
-                ) : (
-                  searchResults
-                    ?.slice(0, 3)
-                    .map((item) => (
-                      <div
-                        className="search-product-card"
-                        key={item.id}
-                        onClick={() => {
-                          navigate(`/product/${item.id}`)
-                          setSearchOpen(false)
-                        }}
-                      >
-                        <img
-                          src={
-                            item.images?.[0] || item.image
-                          }
-                        />
-                        <div>
-                          <h5>{item.name}</h5>
-                          <p>
-                            ₹{item.price}
-                          </p>
+                searchText.length === 0 && searchHistory.length > 0 && (
+
+                  <>
+
+                    <h4>
+                      Recent Searches
+                    </h4>
+
+
+                    {
+                      searchHistory.map((item, index) => (
+
+                        <div
+                          className="history-item"
+                          key={index}
+
+                          onClick={() => {
+
+                            setSearchText(item);
+
+                          }}
+                        >
+
+                          <FaHistory className="history-icon" />
+                          <span>{item}</span>
+
+
                         </div>
-                      </div>
-                    ))
+
+                      ))
+
+                    }
+
+                  </>
+
+                )
+
+              }
+
+
+
+              {
+                searchText.trim() === "" && (
+
+                  <div className="popular-section">
+
+                    <h4>
+                      Popular Products
+                    </h4>
+
+
+                    {
+                      popularProducts.length > 0 ?
+
+                        popularProducts.slice(0, 3).map((item) => (
+
+                          <div
+                            className="search-product-card"
+                            key={item.id}
+
+                            onClick={() => {
+
+                              navigate(`/products/${item.id}`);
+
+                              setSearchOpen(false);
+
+                            }}
+
+                          >
+
+                            <img
+                              src={
+                                item.images?.[0] || item.image
+                              }
+                            />
+
+
+                            <div>
+
+                              <h5>
+                                {item.name}
+                              </h5>
+
+
+                              <p>
+                                ₹{item.price}
+                              </p>
+
+
+                            </div>
+
+
+                          </div>
+
+                        ))
+
+
+                        :
+
+                        <h5>
+                          Loading Popular Products...
+                        </h5>
+
+
+                    }
+
+
+                  </div>
+
                 )
               }
+
+              {
+                searchText.length > 0 && searchResults.length === 0 && (
+
+                  <div className="no-product-found">
+
+                    <h3>
+                      No Product Found 😕
+                    </h3>
+
+                    <p>
+                      Try searching something else
+                    </p>
+
+                  </div>
+
+                )
+
+              }
+
+
+
+              {
+                searchText.length > 0 && searchResults
+                  .slice(0, 3)
+                  .map((item) => (
+
+                    <div
+                      className="search-product-card"
+                      key={item.id}
+
+                      onClick={() => {
+
+                        saveSearchHistory(searchText);
+                        loadPopularProducts();
+
+
+                        navigate(`/products/${item.id}`);
+
+                        setSearchOpen(false);
+
+                      }}
+
+                    >
+
+                      <img
+                        src={
+                          item.images?.[0] || item.image
+                        }
+                      />
+
+                      <div>
+
+                        <h5>
+                          {item.name}
+                        </h5>
+
+                        <p>
+                          ₹{item.price}
+                        </p>
+
+                      </div>
+
+
+                    </div>
+
+                  ))
+
+              }
+
+
             </div>
           </div>
         )

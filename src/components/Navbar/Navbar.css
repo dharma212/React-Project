@@ -508,3 +508,113 @@ body,
 .no-product-found p {
     font-size: 14px;
 }
+.history-item {
+
+    padding:12px 15px;
+
+    background:white;
+
+    border-bottom:1px solid #eee;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+
+.history-item:hover {
+
+    background:#f5f5f5;
+
+}
+/* ================= SEARCH HISTORY ================= */
+
+
+.history-item {
+
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+
+    padding:14px 18px;
+
+
+    margin-bottom:8px;
+
+
+    background:#ffffff;
+
+
+    border-radius:12px;
+
+
+    cursor:pointer;
+
+
+    font-size:15px;
+
+
+    font-weight:500;
+
+
+    color:#374151;
+
+
+    transition:.25s ease;
+
+
+}
+
+
+
+.history-item:hover {
+
+
+    background:#f3f4f6;
+
+
+    transform:translateX(5px);
+
+
+}
+
+
+
+/* History Icon */
+
+.history-icon {
+
+
+    font-size:16px;
+
+
+    color:#64748b;
+
+
+    flex-shrink:0;
+
+
+}
+
+
+
+.history-item span {
+
+
+    overflow:hidden;
+
+
+    text-overflow:ellipsis;
+
+
+    white-space:nowrap;
+
+
+}
