@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { AuthContext } from "../../context/AuthContext";
-import "./List.css";
+import "./list.css";
 import Sidebar from "./Sidebar";
 import "./Sidebar.css";
 
