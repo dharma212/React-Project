@@ -32,8 +32,31 @@ const Signup = () => {
 
 
   const { showToast } = useToast();
+  const [passwordStrength, setPasswordStrength] = useState("");
+  const checkPasswordStrength = (password) => {
+
+    if (password.length === 0) {
+      return "";
+    }
 
 
+    if (password.length < 6) {
+      return "Weak";
+    }
+
+
+    if (
+      password.length >= 6 &&
+      /[A-Z]/.test(password) &&
+      /[0-9]/.test(password)
+    ) {
+      return "Strong";
+    }
+
+
+    return "Medium";
+
+  };
 
 
   const [name, setName] = useState("");
@@ -311,16 +334,36 @@ const Signup = () => {
 
                 type="password"
 
-                placeholder="Password"
+                placeholder="Enter Password"
 
                 value={password}
 
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+
+                  setPassword(e.target.value);
+
+                  setPasswordStrength(
+                    checkPasswordStrength(e.target.value)
+                  );
+
+                }}
 
               />
 
 
             </div>
+            {
+              passwordStrength && (
+
+                <div className={`strength-box ${passwordStrength}`}>
+
+                  Password strength:
+                  <b>{passwordStrength}</b>
+
+                </div>
+
+              )
+            }
 
 
 

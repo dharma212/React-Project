@@ -1,3 +1,4 @@
+import { FaRightToBracket } from "react-icons/fa6";
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
@@ -183,6 +184,9 @@ const Navbar = () => {
           <h3>Main Menu</h3>
           <span>E-Store Navigation</span>
         </div>
+        <div className="mobile-search">
+          <SearchBar />
+        </div>
         <li><Link to="/" onClick={() => setMenuOpen(false)}>          <FaHome />
           Home</Link></li>
         <li><Link to="/products" onClick={() => setMenuOpen(false)}><FaBoxOpen /> Products</Link></li>
@@ -216,7 +220,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <li><Link to="/login" onClick={() => setMenuOpen(false)}><FaArrowRightFromBracket /> Login</Link></li>
+            <li><Link to="/login" onClick={() => setMenuOpen(false)}><FaRightToBracket /> Login</Link></li>
           </>
         )}
       </ul>

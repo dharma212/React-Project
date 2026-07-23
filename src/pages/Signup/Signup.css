@@ -400,3 +400,49 @@
     }
 
 }
+
+/* PASSWORD STRENGTH */
+
+.strength-box {
+
+    margin-top: -10px;
+
+    font-size: 14px;
+
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+
+.strength-box b {
+
+    margin-left: 8px;
+
+}
+
+
+/* Weak */
+
+.strength-box.Weak {
+
+    color: #e53935;
+
+}
+
+
+/* Medium */
+
+.strength-box.Medium {
+
+    color: #f9a825;
+
+}
+
+
+/* Strong */
+
+.strength-box.Strong {
+
+    color: #2e7d32;
+
+}

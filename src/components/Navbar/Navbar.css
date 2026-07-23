@@ -281,6 +281,7 @@
     /* SEARCH */
     .mobile-search {
         width: 100%;
+        display: none;
     }
 
     .mobile-search input {

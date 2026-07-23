@@ -122,6 +122,11 @@ const Footer = () => {
             </li>
 
 
+            <li>
+              <FaArrowRight />
+              <Link to="/orders">Orders</Link>
+            </li>
+
           </ul>
 
 
@@ -152,22 +157,20 @@ const Footer = () => {
 
             <li>
               <FaArrowRight />
-              <Link to="/orders">Orders</Link>
+              <Link to="/about">About Us</Link>
             </li>
 
 
             <li>
               <FaArrowRight />
-              <Link to="/">Privacy</Link>
+              <Link to="/terms">Terms & Conditions</Link>
             </li>
 
 
             <li>
               <FaArrowRight />
-              <Link to="/">Terms</Link>
+              <Link to="/contact">Contact Us</Link>
             </li>
-
-
           </ul>
 
 

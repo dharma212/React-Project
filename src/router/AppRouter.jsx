@@ -24,132 +24,138 @@ import AdminOrderdetails from "../pages/Admin/AdminOrderdetails";
 import UserDetail from "../pages/Admin/UserDetail";
 import UserForm from "../pages/Admin/UserForm";
 import Payment from "../pages/Payment/Payment";
+import About from "../pages/About/About"
+import Contact from "../pages/Contact/Contact"
+import Terms from "../pages/Terms/Terms"
 
 const AppRouter = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      
-      <Route path="/products" element={<ProductList />} />
-      <Route path="/products/:id" element={<ProductDetails />} />
-      
-      <Route path="/cart" element={<Cart />} />
-      
-      <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
-      <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-      
-    <Route
-        path="/admin/add-product"
-        element={
-            <ProtectedRoute adminOnly={true}>
-                <ProductForm />
-            </ProtectedRoute>
-        }
-    />
+    return (
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
 
-    <Route
-        path="/admin/edit-product/:id"
-        element={
-            <ProtectedRoute adminOnly={true}>
-                <ProductForm />
-            </ProtectedRoute>
-        }
-    />
-    <Route
-    path="/admin"
-    element={
-        <ProtectedRoute>
-        <Dashboard />
-        </ProtectedRoute>
-    }
-    />
+            <Route path="/products" element={<ProductList />} />
+            <Route path="/products/:id" element={<ProductDetails />} />
 
-    <Route
-    path="/admin/products"
-    element={
-        <ProtectedRoute>
-        <ProductManagement />
-        </ProtectedRoute>
-    }
-    />
+            <Route path="/cart" element={<Cart />} />
 
-    <Route
-    path="/admin/carts"
-    element={
-        <ProtectedRoute>
-        <CartList />
-        </ProtectedRoute>
-    }
-    />
+            <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 
-    <Route
-    path="/admin/wishlist"
-    element={
-        <ProtectedRoute>
-        <WishlistList />
-        </ProtectedRoute>
-    }
-    />
-    <Route
-        path="/admin/User"
-        element={
-            <ProtectedRoute>
-                <UserList />
-            </ProtectedRoute>
-        }
-    />
-    <Route 
-    path="/checkout"
-    element={<Checkout/>}
-    />
+            <Route
+                path="/admin/add-product"
+                element={
+                    <ProtectedRoute adminOnly={true}>
+                        <ProductForm />
+                    </ProtectedRoute>
+                }
+            />
 
+            <Route
+                path="/admin/edit-product/:id"
+                element={
+                    <ProtectedRoute adminOnly={true}>
+                        <ProductForm />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/admin"
+                element={
+                    <ProtectedRoute>
+                        <Dashboard />
+                    </ProtectedRoute>
+                }
+            />
 
-    <Route 
-    path="/orders"
-    element={<OrderList/>}
-    />
+            <Route
+                path="/admin/products"
+                element={
+                    <ProtectedRoute>
+                        <ProductManagement />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/admin/carts"
+                element={
+                    <ProtectedRoute>
+                        <CartList />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/admin/wishlist"
+                element={
+                    <ProtectedRoute>
+                        <WishlistList />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/admin/User"
+                element={
+                    <ProtectedRoute>
+                        <UserList />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/checkout"
+                element={<Checkout />}
+            />
 
 
-    <Route 
-    path="/orders/:id"
-    element={<OrderDetails/>}
-    />
+            <Route
+                path="/orders"
+                element={<OrderList />}
+            />
 
-    <Route
-    path="/admin/orders"
-    element={
-        <ProtectedRoute adminOnly={true}>
-        <AdminOrderList />
-        </ProtectedRoute>
-    }
-    />
 
-    <Route
-  path="/admin/orders/:id"
-  element={
-    <ProtectedRoute adminOnly={true}>
-      <AdminOrderdetails />
-    </ProtectedRoute>
-  }
-/>
-<Route
- path="/dashboard/user-detail"
- element={<UserDetail />}
-/>
-<Route
- path="/admin/user-form"
- element={<UserForm />}
-/>
+            <Route
+                path="/orders/:id"
+                element={<OrderDetails />}
+            />
 
-<Route
-  path="/payment"
-  element={<Payment />}
-/>
-    <Route path="*" element={<NotFound />} />
-    </Routes>
-  );
+            <Route
+                path="/admin/orders"
+                element={
+                    <ProtectedRoute adminOnly={true}>
+                        <AdminOrderList />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/admin/orders/:id"
+                element={
+                    <ProtectedRoute adminOnly={true}>
+                        <AdminOrderdetails />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/dashboard/user-detail"
+                element={<UserDetail />}
+            />
+            <Route
+                path="/admin/user-form"
+                element={<UserForm />}
+            />
+
+            <Route
+                path="/payment"
+                element={<Payment />}
+            />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="*" element={<NotFound />} />
+        </Routes>
+    );
 };
 
 export default AppRouter;

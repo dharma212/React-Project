@@ -2,7 +2,7 @@
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  gap: 1rem;
   padding: 0 5%; /* Adds breathing room on the sides */
   margin-bottom: 4rem;
 }
@@ -467,5 +467,159 @@
 .btn-added:hover{
 
     background:#218838;
+
+}
+@media(max-width: 600px) {
+
+  /* Card layout horizontal karva mate */
+  .product-card {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: auto !important;
+    background: white !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    border: 1px solid #eee !important;
+    padding: 10px !important;
+    gap: 12px !important;
+  }
+
+  /* Left side image box */
+  .product-image-box {
+    width: 110px !important;
+    height: 110px !important;
+    min-width: 110px !important;
+    background: #fafafa !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 8px !important;
+    position: relative !important;
+  }
+
+  .product-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    padding: 8px !important;
+  }
+
+  /* Wishlist icon button image par or corner ma */
+  .wishlist-icon {
+    position: absolute !important;
+    top: 4px !important;
+    right: 4px !important;
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 12px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid #ddd !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Right side product info */
+  .product-info {
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    justify-content: space-between !important;
+  }
+
+  .product-name {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    height: auto !important;
+    max-height: 34px !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    margin: 0 0 2px 0 !important;
+    color: #222 !important;
+  }
+
+  /* Category jo hati to tenu formatting */
+  .product-category {
+    font-size: 11px !important;
+    color: #777 !important;
+    margin-bottom: 2px !important;
+  }
+
+  .rating {
+    font-size: 11px !important;
+    margin: 2px 0 !important;
+  }
+
+  .product-price {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    margin: 4px 0 8px 0 !important;
+    color: #111 !important;
+  }
+
+  /* Add to cart button right side / niche */
+  .product-actions {
+    display: flex !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+  }
+
+  .btn-add, .btn-added, .btn-view {
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+}
+@media(max-width: 600px) {
+
+  /* Product Name proper line-clamp and height sathe */
+  .product-name {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    height: auto !important;
+    max-height: none !important;
+    white-space: normal !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    margin: 0 0 4px 0 !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Button text gayab thai jati hati te fix karva mate */
+  .btn-add, .btn-added, .btn-view {
+    padding: 8px 6px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    height: auto !important;
+    border-radius: 20px !important;
+  }
+
+  /* Right side info layout fix */
+  .product-info {
+    padding: 4px 0 4px 4px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    justify-content: space-between !important;
+    overflow: hidden !important;
+  }
 
 }

@@ -181,7 +181,7 @@
 
   color: #6366f1;
 
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 
 }
 
@@ -266,11 +266,11 @@
 
 }
 
-.forgot-password {
+/* .forgot-password {
   cursor: pointer;
   float: right;
   margin-bottom: -10px;
-}
+} */
 
 .form-error {
 
@@ -312,5 +312,146 @@
     transform: translateY(0);
 
   }
+
+}
+
+/* ================= LOGIN OPTIONS ================= */
+
+.login-options {
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin: 20px 0;
+
+}
+
+
+/* Remember Me */
+
+.remember-box {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin: 0;
+
+  font-size: 14px;
+
+  color: #555;
+
+}
+
+
+.remember-box input {
+
+  width: 16px;
+
+  height: 16px;
+
+  margin: 0;
+
+  cursor: pointer;
+
+  accent-color: #2874f0;
+
+}
+
+
+.remember-box label {
+
+  margin: 0;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+}
+
+
+
+/* Forgot Password */
+
+.forgot {
+
+  margin: 0;
+
+  padding: 0;
+
+  color: #2874f0;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+}
+
+
+.forgot:hover {
+
+  text-decoration: underline;
+
+}
+
+/* LOGIN LOADER */
+
+
+.loader {
+
+  width: 18px;
+
+  height: 18px;
+
+  border: 3px solid rgba(255, 255, 255, .4);
+
+  border-top-color: white;
+
+  border-radius: 50%;
+
+  display: inline-block;
+
+  margin-right: 8px;
+
+  animation: spin .8s linear infinite;
+
+}
+
+
+
+@keyframes spin {
+
+  from {
+
+    transform: rotate(0deg);
+
+  }
+
+  to {
+
+    transform: rotate(360deg);
+
+  }
+
+}
+
+
+
+button:disabled {
+
+  opacity: .7;
+
+  cursor: not-allowed;
 
 }

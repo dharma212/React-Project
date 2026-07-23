@@ -11,22 +11,22 @@ export const ProductProvider = ({ children }) => {
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [sortOrder, setSortOrder] = useState("Name A-Z");
 
-  useEffect(() => {
-    setLoading(true);
+useEffect(() => {
 
-    setTimeout(() => {
-      const saved = localStorage.getItem('productsDB');
+  setLoading(true);
 
-      if (saved) {
-        setProducts(JSON.parse(saved));
-      } else {
-        setProducts(initialProducts);
-        localStorage.setItem('productsDB', JSON.stringify(initialProducts));
-      }
+  setTimeout(() => {
 
-      setLoading(false);
-    }, 1000);
-  }, []);
+    setProducts(initialProducts);
+
+
+    setLoading(false);
+
+
+  },1000);
+
+
+},[]);
 
   const addProduct = (product) => {
     const newProducts = [...products, { ...product, id: Date.now() }];

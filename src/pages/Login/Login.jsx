@@ -17,9 +17,9 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
-
+  const [loading, setLoading] = useState(false);
 
 
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Login = () => {
 
     e.preventDefault();
 
-
+    setLoading(true);
     setError("");
 
 
@@ -75,23 +75,28 @@ const Login = () => {
     if (result.success) {
 
 
-      login(result.user);
-
-
-      showToast(
-        "Login Successfully "
+      login(
+        result.user,
+        rememberMe
       );
 
 
-      navigate("/");
+      showToast(
+        "Login Successfully"
+      );
+
+      setTimeout(() => {
+
+        navigate("/");
+      }, 1000);
 
 
     }
     else {
 
-
       setError(result.message);
 
+      setLoading(false);
 
     }
 
@@ -205,11 +210,27 @@ const Login = () => {
 
 
             </div>
+            <div className="login-options">
 
+              <div className="remember-box">
 
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                />
 
+                <label>
+                  Remember me
+                </label>
 
+              </div>
+              <a className="forgot">
 
+                Forgot Password?
+
+              </a>
+            </div>
 
             {
               error &&
@@ -228,23 +249,41 @@ const Login = () => {
 
 
 
-            <a className="forgot">
+            {/* <a className="forgot">
 
               Forgot Password?
 
-            </a>
+            </a> */}
 
 
 
 
 
 
-            <button type="submit">
+            <button
+              type="submit"
+              disabled={loading}
+            >
 
-              Login
+
+              {
+                loading ? (
+
+                  <>
+                    <span className="loader"></span>
+                    Logging in...
+                  </>
+
+                ) : (
+
+                  "Login"
+
+                )
+
+              }
+
 
             </button>
-
 
 
 

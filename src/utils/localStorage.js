@@ -1,14 +1,43 @@
-export const saveUser = (user) => {
-  localStorage.setItem('user', JSON.stringify(user));
+export const saveUser = (user, rememberMe = false) => {
+
+  if (rememberMe) {
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify(user)
+    );
+
+  } 
+  else {
+
+    sessionStorage.setItem(
+      "user",
+      JSON.stringify(user)
+    );
+
+  }
+
 };
 
 export const getUser = () => {
-  const user = localStorage.getItem('user');
-  return user ? JSON.parse(user) : null;
+
+  const user =
+    localStorage.getItem("user") ||
+    sessionStorage.getItem("user");
+
+
+  return user 
+    ? JSON.parse(user) 
+    : null;
+
 };
 
 export const removeUser = () => {
-  localStorage.removeItem('user');
+
+  localStorage.removeItem("user");
+
+  sessionStorage.removeItem("user");
+
 };
 
 export const registerUser = (user) => {
@@ -103,14 +132,12 @@ export const loginUser = (email, password) => {
 
   if (user) {
 
-    saveUser(user);
-
     return {
       success: true,
       user
     };
 
-  }
+}
 
 
 

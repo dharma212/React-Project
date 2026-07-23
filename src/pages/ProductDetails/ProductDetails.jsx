@@ -10,23 +10,29 @@ const ProductDetails = () => {
     const { id } = useParams();
     const { products } = useContext(ProductContext);
     const { addToCart, toggleWishlist, wishlist, cart } = useContext(CartContext);
-
     const product = products.find(p => p.id === parseInt(id));
     const [selectedImage, setSelectedImage] = useState("");
     const [imageIndex, setImageIndex] = useState(0);
+    const [showFullName, setShowFullName] = useState(false);
+    const [pageLoading, setPageLoading] = useState(false);
+    const [showFullDescription, setShowFullDescription] = useState(false);
+
     useEffect(() => {
-
         if (product) {
-
-            const firstImage =
-                product.images?.[0] || product.image;
-
-
-            setSelectedImage(firstImage);
-            setImageIndex(0);
-
+            setPageLoading(true);
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+            const timer = setTimeout(() => {
+                const firstImage =
+                    product.images?.[0] || product.image;
+                setSelectedImage(firstImage);
+                setImageIndex(0);
+                setPageLoading(false);
+            }, 700);
+            return () => clearTimeout(timer);
         }
-
     }, [product]);
     if (!product) {
         return <ProductDetailsSkeleton />;
@@ -34,6 +40,11 @@ const ProductDetails = () => {
 
     const isWishlisted = wishlist.some(item => item.id === product.id);
     const isInCart = cart.some(item => item.id === product.id);
+    const relatedProducts = products.filter(
+        item =>
+            item.id !== product.id &&
+            item.category === product.category
+    ).slice(0, 5);
     const productImages =
         product.images?.length > 0
             ? product.images
@@ -76,240 +87,595 @@ const ProductDetails = () => {
 
 
     };
-    return (
-        <div className="product-page">
+    if (pageLoading) {
 
-            {/* LEFT IMAGE SECTION */}
-            <div className="product-gallery">
+        return (
 
-                <div className="thumb-list">
-                    {
-                        productImages.map((img, index) => (
-                            <img
-                                key={index}
-                                src={img}
-                                className={
-                                    selectedImage === img
-                                        ? "thumb active"
-                                        : "thumb"
-                                }
-                                onClick={() => {
-                                    setSelectedImage(img);
-                                    setImageIndex(index);
-                                }}
-                            />
-                        ))
-                    }
+            <div className="product-loader-container">
+
+
+                <div className="loader-gallery">
+
+
+                    <div className="loader-thumbnails">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                    <div className="loader-main-image">
+
+                    </div>
+
+
                 </div>
 
 
-                <div className="main-image-box">
 
-                    <button
-                        className="image-arrow left"
-                        onClick={previousImage}
-                        disabled={imageIndex === 0}
-                    >
-                        ❮
-                    </button>
+                <div className="loader-details">
 
 
-                    <img
-                        src={selectedImage}
-                        className="main-image"
-                    />
+                    <div className="loader-title"></div>
+
+                    <div className="loader-title short"></div>
 
 
-                    <button
-                        className="image-arrow right"
-                        onClick={nextImage}
-                        disabled={
-                            imageIndex === productImages.length - 1
-                        }
-                    >
-                        ❯
-                    </button>
+                    <div className="loader-rating"></div>
+
+
+                    <div className="loader-price"></div>
+
+
+                    <div className="loader-offer"></div>
+
+                    <div className="loader-offer"></div>
+
+
+                    <div className="loader-buttons">
+
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
 
                 </div>
+
 
             </div>
 
+        )
+
+    }
+    return (
+        <>
+            <div className="page-heading">
+
+                <h2>
+                    Product Details
+                </h2>
+
+                <p>
+                    Home / Products / {product.name}
+                </p>
+
+            </div>
+            <div className="product-page">
+
+                {/* LEFT IMAGE SECTION */}
+               <div className="product-gallery">
+
+    <div className="thumb-list">
+        {productImages.map((img, index) => (
+            <div
+                key={index}
+                className={`thumb-item ${
+                    selectedImage === img ? "active-thumb" : ""
+                }`}
+                onClick={() => {
+                    setSelectedImage(img);
+                    setImageIndex(index);
+                }}
+            >
+                <img src={img} alt="" />
+            </div>
+        ))}
+    </div>
+
+    <div className="main-image-box">
+
+        <button
+            className="image-arrow left"
+            onClick={previousImage}
+            disabled={imageIndex === 0}
+        >
+            ❮
+        </button>
+
+        <img
+            src={selectedImage}
+            alt={product.name}
+            className="main-image"
+        />
+
+        <button
+            className="image-arrow right"
+            onClick={nextImage}
+            disabled={imageIndex === productImages.length - 1}
+        >
+            ❯
+        </button>
+
+    </div>
+
+</div>
 
 
-            {/* RIGHT DETAILS */}
 
-            <div className="product-infos">
+                {/* RIGHT DETAILS */}
 
-
-                <h1>{product.name}</h1>
+                <div className="product-infos">
 
 
-                <div className="rating-box">
+                    <div className="product-headers">
 
-                    <FaStar className="offer-icon" />
-                    {product.rating || 5}
-                    <span className="reviews">({product.reviews || 2} Reviews)</span>
+
+                        <h1 className="product-title">
+
+                            {
+                                showFullName
+                                    ?
+                                    product.name
+                                    :
+                                    product.name.length > 100
+                                        ?
+                                        product.name.substring(0, 100) + "..."
+                                        :
+                                        product.name
+                            }
+
+                        </h1>
+
+
+                        {
+                            product.name.length > 100 && (
+
+                                <button
+                                    className="title-toggle-btn"
+                                    onClick={() =>
+                                        setShowFullName(!showFullName)
+                                    }
+                                >
+
+                                    {
+                                        showFullName
+                                            ?
+                                            "View Less"
+                                            :
+                                            "View More"
+                                    }
+
+                                </button>
+
+                            )
+                        }
+
+
+
+                        <div className="product-rating-section">
+
+
+                            <div className="rating-badge">
+
+                                <FaStar />
+
+                                {product.rating || 5}
+
+                            </div>
+
+
+                            <span className="review-count">
+
+                                {product.reviews || 2} Reviews
+
+                            </span>
+
+
+                            <span className="verified-text">
+
+                                ✔ Verified Product
+
+                            </span>
+
+
+                        </div>
+
+
+
+
+                        <div className="modern-price-box">
+
+
+                            <h2>
+
+                                ₹{product.price.toLocaleString()}
+
+                            </h2>
+
+
+
+                            <del>
+
+                                ₹{(product.mrp || product.price + 5000).toLocaleString()}
+
+                            </del>
+
+
+
+                            <span className="discount-text">
+
+                                {
+                                    Math.round(
+                                        (
+                                            ((product.mrp || product.price + 5000)
+                                                -
+                                                product.price)
+                                            /
+                                            (product.mrp || product.price + 5000)
+                                        )
+                                        *
+                                        100
+                                    )
+                                }
+                                % OFF
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div className="modern-offer-box">
+
+                        <h3>
+                            Available Offers
+                        </h3>
+
+
+                        <div className="offer-item">
+
+                            <div className="offer-icon-box">
+                                <FaPercent />
+                            </div>
+
+                            <div>
+                                <b>Bank Offer</b>
+                                <p>
+                                    10% instant discount on Credit Cards
+                                </p>
+                            </div>
+
+                        </div>
+
+
+
+                        <div className="offer-item">
+
+                            <div className="offer-icon-box truck">
+                                <FaTruck />
+                            </div>
+
+                            <div>
+                                <b>Free Delivery</b>
+                                <p>
+                                    Free shipping on orders above ₹499
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div className="modern-details-row">
+
+
+                        <div className="detail-card">
+
+                            <span>
+                                Category
+                            </span>
+
+                            <strong>
+                                {product.category}
+                            </strong>
+
+                        </div>
+
+
+
+                        <div className="detail-card">
+
+                            <span>
+                                Availability
+                            </span>
+
+                            <strong className="stock">
+                                ● In Stock ({product.stock})
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+                    <div className="modern-description-box">
+
+
+                        <div className="description-header">
+
+                            <h3>
+                                Product Description
+                            </h3>
+
+                        </div>
+
+
+
+                        <p>
+
+                            {
+                                showFullDescription
+                                    ?
+                                    product.description
+                                    :
+                                    product.description?.length > 200
+                                        ?
+                                        product.description.substring(0, 200) + "..."
+                                        :
+                                        product.description
+                            }
+
+                        </p>
+
+
+
+                        {
+                            product.description?.length > 200 && (
+
+                                <button
+                                    className="description-toggle"
+                                    onClick={() =>
+                                        setShowFullDescription(!showFullDescription)
+                                    }
+                                >
+
+                                    {
+                                        showFullDescription
+                                            ?
+                                            "View Less"
+                                            :
+                                            "View More"
+                                    }
+
+                                </button>
+
+                            )
+                        }
+
+
+                    </div>
+
+                    <div className="modern-action-buttons">
+
+                        <button
+                            className="modern-cart-btn"
+                            onClick={() => addToCart(product)}
+                        >
+
+                            <FaShoppingCart />
+
+                            {isInCart ? "Go To Cart" : "Add To Cart"}
+
+                        </button>
+
+
+
+                        <button
+                            className={`modern-wishlist-btn ${isWishlisted ? "wishlisted-active" : ""
+                                }`}
+                            onClick={() => toggleWishlist(product)}
+                        >
+
+                            {isWishlisted ? "❤️ Wishlisted" : "🤍 Wishlist"}
+
+                        </button>
+
+                    </div>
+
+
+
+                    <div className="modern-service-box">
+
+
+                        <div className="service-card">
+
+                            <span className="service-icon">
+                                🚚
+                            </span>
+
+                            <div>
+
+                                <b>
+                                    Fast Delivery
+                                </b>
+
+                                <small>
+                                    Ships within 24 hours
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div className="service-card">
+
+                            <span className="service-icon">
+                                🔒
+                            </span>
+
+                            <div>
+
+                                <b>
+                                    Secure Payment
+                                </b>
+
+                                <small>
+                                    100% Safe Checkout
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div className="service-card">
+
+                            <span className="service-icon">
+                                ↩
+                            </span>
+
+                            <div>
+
+                                <b>
+                                    Easy Returns
+                                </b>
+
+                                <small>
+                                    7 Days Return Policy
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
 
 
                 </div>
 
 
+            </div>
+            <div className="related-product-section">
 
-                <div className="price-box">
+                <div className="related-header">
 
                     <h2>
-                        ₹{product.price.toLocaleString()}
+                        Related Products
                     </h2>
 
-                    <del>
-                        ₹{product.mrp || product.price + 5000}
-                    </del>
 
-                    <span>
-                        ↓ 11% OFF
-                    </span>
+                    <div className="related-slider-buttons">
 
-                </div>
-
-
-                <div className="offer-box">
-
-                    <h4>Available Offers</h4>
-
-                    <p>
-                        <FaPercent className="offer-icon" />
-                        Bank Offer: 10% instant discount on Credit Cards
-                    </p>
-
-                    <p>
-                        <FaTruck className="offer-icon" />
-                        Free shipping on orders above ₹499
-                    </p>
-
-                </div>
+                        <button
+                            onClick={() => {
+                                document
+                                    .querySelector(".related-product-slider")
+                                    .scrollLeft -= 250
+                            }}
+                        >
+                            ❮
+                        </button>
 
 
+                        <button
+                            onClick={() => {
+                                document
+                                    .querySelector(".related-product-slider")
+                                    .scrollLeft += 250
+                            }}
+                        >
+                            ❯
+                        </button>
 
-                <div className="details-row">
 
-                    <div>
-                        <small>Category</small>
-                        <b>{product.category}</b>
                     </div>
-
-
-                    <div>
-                        <small>Availability</small>
-                        <b className="stock">
-                            ● In Stock ({product.stock})
-                        </b>
-                    </div>
-
-                </div>
-
-
-
-                <div className="options">
-
-                    <p>Available Colors</p>
-
-                    <div className="color-box">
-                        <img src={productImages[0]} />
-                    </div>
-
-
-                    <p>Available Sizes</p>
-
-                    <button>
-                        {product.size || "14"}
-                    </button>
-
-                </div>
-
-
-
-                <div className="description-box">
-
-                    <h5>
-                        PRODUCT DESCRIPTION
-                    </h5>
-
-                    <p>
-                        {product.description}
-                    </p>
-
-                </div>
-
-
-
-                {/* <div className="quantity-box">
-
-            <b>Select Quantity:</b>
-
-            <div>
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-            </div>
-
-        </div> */}
-
-
-
-                <div className="action-buttons">
-
-
-                    <button
-                        className="cart-btn"
-                        onClick={() => addToCart(product)}
-                    >
-                        <FaShoppingCart /> {isInCart ? "Go To Cart" : "Add To Cart"}
-                    </button>
-
-
-                    <button
-                        className={`wishlist-btn ${isWishlisted ? "wishlisted" : ""
-                            }`
-                        }
-                        onClick={() => toggleWishlist(product)}
-                    >
-                        {isWishlisted ? "❤️ Wishlisted" : "🤍 Add To Wishlist"}
-                    </button>
 
 
                 </div>
 
 
 
-                <div className="service-box">
-
-                    <div>
-                        🚚
-                        <b>Fast Delivery</b>
-                        <small>Ships within 24 hours</small>
-                    </div>
+                <div className="related-product-slider">
 
 
-                    <div>
-                        🔒
-                        <b>Secure Payment</b>
-                        <small>100% Safe Checkout</small>
-                    </div>
+                    {
+                        relatedProducts.map(item => (
+
+                            <Link
+                                to={`/products/${item.id}`}
+                                className="related-product-card"
+                                onClick={() => {
+                                    window.scrollTo({
+                                        top: 0,
+                                        behavior: "smooth"
+                                    })
+                                }}
+                            >
+
+                                <img
+                                    src={
+                                        item.images?.[0] || item.image
+                                    }
+                                />
 
 
-                    <div>
-                        ↩
-                        <b>Easy Returns</b>
-                        <small>7 Days Return Policy</small>
-                    </div>
+                                <h4>
+                                    {
+                                        item.name.length > 35
+                                            ?
+                                            item.name.substring(0, 35) + "..."
+                                            :
+                                            item.name
+                                    }
+                                </h4>
+
+
+                                <div className="related-product-rating">
+                                    ⭐ {item.rating || 5}
+                                </div>
+
+
+                                <h3>
+                                    ₹{item.price.toLocaleString()}
+                                </h3>
+
+
+                            </Link>
+
+
+                        ))
+                    }
+
 
                 </div>
 
 
             </div>
-
-
-        </div>
+        </>
     )
 };
 
