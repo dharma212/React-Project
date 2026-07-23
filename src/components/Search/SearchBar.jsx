@@ -126,7 +126,7 @@ const SearchBar = () => {
 
                   <Link
 
-                    to={`/product/${product.id}`}
+                    to={`/products/${product.id}`}
 
                     className="search-item"
 
